@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import socket
 import time
+import os
 
 
 def connect(url):
@@ -60,13 +61,17 @@ def connect(url):
 
 def init_seed(path):
     with open(path) as fobj:
-        specs = [x.strip() for x in fobj.readline().split(',')]
-    return specs[0], specs[1], specs[2]
+        url, pgs, rstr = fobj.readline().split(',')
+    if not url.startswith('http'):
+        url = 'http://' + url
+    pgs = int(pgs) if pgs.isnumeric() else 100
+    return url, pgs, rstr
 
 
 def get_robots(url):
-    robtkn = [x for x in url.split('/') if x or x != 'http:' or x != 'https:']
-    roburl = 'http://'+robtkn[0]+'/robots.txt'
+    roburl = url+'/robots.txt'
+    if not url.startswith('http'):
+        roburl = 'https://'+roburl
     bs, res = connect(roburl)
     return bs.getText()
 
@@ -80,13 +85,52 @@ def get_crawl_delay(url, delay=1):
     return max(waits)
 
 
-def gather_link(url):
-    pass
+def gather_links(url, html):
+    # html, res = connect(url)
+    links = []
+    for a in html.find_all('a'):
+        if a.has_attr('href'):
+            a = a['href']
+            if a.startswith('//'):
+                a = 'http:'+a
+            elif a.startswith('/'):
+                a = url+a
+            links.append(a)
+    return links
+
+
+def write_html(url, res):
+    fpath = url.replace('/', '.')
+    with open('repository/'+fpath+'.html', 'wt') as fobj:
+        fobj.write(res.text)
+
+
+def scrape_page(url):
+    html, res = connect(url)
+    if html:
+        write_html(url, res)
+        links = gather_links(url, html)
+        return links
+    return []
 
 
 def run():
     url, pgs, rstr = init_seed('specification.csv')
+    links = []
 
+    delay = get_crawl_delay(url)
+    delay = 1
+
+    while len(os.listdir('repository/')) < pgs:
+
+        # init time, subtract max(delay-time_taken, 0)
+
+        lnk = scrape_page(url)
+        links.extend(lnk)
+        url, links = links[0], links[1:]
+        time.sleep(delay)
+
+        print(url)
 
 
 if __name__ == '__main__':
