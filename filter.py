@@ -1,6 +1,6 @@
 import lxml
-from lxml import html as html
-from lxml.html import HtmlElement
+from lxml import html
+from lxml.html import HtmlElement, etree
 from lxml.html.clean import Cleaner
 from urllib import request
 
@@ -24,8 +24,12 @@ def connect(url):
         print(err)
 
 
-def extract_html(url):
+def retrieve_html(url):
     raw_html = connect(url)
+    # tree = lxml.html.etree.fromstring(raw_html)
+    # print(tree)
+    # print(type(tree))
+    # tree = lxml.html.etree.fromstring(raw_html)
     return lxml.html.fromstring(raw_html)
 
 
@@ -38,18 +42,52 @@ def clean(doc):
         forms=True,
         frames=True,
         embedded=True,
-        meta=True,
+        # meta=True,
         remove_unknown_tags=True,
         kill_tags=(
-            'img'
+            'form',
+            'img',
+            'button'
         ),
+        # remove_tags=(
+        #     'span'
+        # ),
     ).clean_html(doc)
 
 
+
+def traverse(doc):
+    # nodes to check == div, tr, p,
+    if isinstance(doc, HtmlElement):
+        # tree = doc.getchildren()
+        tree = doc.getroottree()
+        print(type(tree))
+        print('\n')
+        for node in tree.iter():
+            pass
+    return doc
+
+
+def remove_link_dense(doc):
+    tags = ['div', 'span', 'tr', 'p']
+    if isinstance(doc, HtmlElement):
+        remove_nodes = []
+        for node in doc.iter(*tags):
+            a_words = float(sum([len(a.text.split()) for a in node.iter('a') if a.text]))
+            word_count = float(sum([len(t.text.split()) for t in node.iter() if t.text]))
+            if word_count == a_words != 0:
+                remove_nodes.append(node)
+        for node in remove_nodes:
+            node.getparent().remove(node)
+    return doc
+
+
 def noise_removal(url):
-    doc = extract_html(url)
+    doc = retrieve_html(url)
     if isinstance(doc, HtmlElement):
         doc = clean(doc)
+        doc = remove_link_dense(doc)
+        # print(doc.text_content())
     return doc
 
 
