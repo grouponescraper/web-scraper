@@ -1,10 +1,15 @@
 from bs4 import BeautifulSoup
 import threading
 import requests
+import pprint
 import shutil
 import socket
 import time
 import os
+
+
+from urllib import request
+
 
 
 ERR_SHORT = 1
@@ -16,17 +21,19 @@ REPOSITORY_TOKEN = '.'
 TOTAL_PAGES = 1000
 
 
+'''
+
 def connect(url):
 
     def handle_errors(err, url, dur=0):
         # TODO uncomment print msg
-        print(err)
-        print('Resuming in ', dur, 'sec...')
+        # print(err)
+        # print('Resuming in ', dur, 'sec...')
         time.sleep(dur)
 
     def success_connect(res):
         # TODO uncomment print msg
-        print('Successfully connected to', res.url)
+        # print('Successfully connected to', res.url)
         return BeautifulSoup(res.text, 'lxml'), res
 
     error_counter = 0
@@ -66,6 +73,32 @@ def connect(url):
             error_counter += 1
     return None, None
 
+'''
+
+
+def connect(url):
+
+    def get_http_headers():
+        version_info = (1, 0, 25)
+        __version__ = ".".join(map(str, version_info))
+        browser_user_agent = 'Parser/%s' % __version__
+        headers = {'User-agent': browser_user_agent}
+        return headers
+
+    error_counter = 0
+    while error_counter < MAX_ERRORS:
+        try:
+            req = request.Request(url,
+                                  headers=get_http_headers())
+            res = request.urlopen(req, timeout=30)
+            if res is not None:
+                # print('connected to', res.geturl())
+                return res
+        except Exception as err:
+            # print(err, url)
+            error_counter += 1
+            time.sleep(10)
+
 
 def init_dir():
     report = 'report.html'
@@ -90,8 +123,9 @@ def get_robots_txt(url):
     roburl = url+'/robots.txt'
     if not url.startswith('http'):
         roburl = 'https://'+roburl
-    tree, res = connect(roburl)
-    if tree:
+    res = connect(roburl)
+    if res:
+        tree = BeautifulSoup(res.read(), 'lxml')
         return tree.getText()
     return ''
 
@@ -123,32 +157,67 @@ def repository_fpath(url):
     return url.replace('/', REPOSITORY_TOKEN)
 
 
-def write_html_file(url, res):
+def write_html_file(url, tree):
     fpath = repository_fpath(url)
     with open('repository/'+fpath+'.html', 'wt') as fobj:
-        fobj.write(res.text)
+        fobj.write(str(tree))
 
 
 def gather_links(html):
     return [a['href'] for a in html.find_all('a') if a.has_attr('href')]
 
 
+def get_hostname(baselink, url):
+
+    if 'javascript:' in url:
+        return None
+    if '?lang=' in url:
+        return None
+    if 'mailto:' in url:
+        return None
+
+    if url.startswith('/'):
+        return baselink
+
+    if '.' in url:
+        htoks = [x for x in url.split('/') if x and '.' in x]
+        if len(htoks) > 0:
+            link = htoks[0]
+            return 'https://' + link
+    else:
+        return baselink
+
+
+def shape_link(hostname, link):
+    url = link.replace('#', '') \
+        .replace('www.', '').replace('http://', 'https://')
+    if url.startswith('//'):
+        url = 'https:' + url
+    elif url.startswith('/'):
+        url = url.strip('/')
+        url = hostname + '/' + url
+    elif url.startswith('.'):
+        url = hostname
+    elif url == '':
+        url = hostname
+    if not url.startswith('http'):
+        url = 'https://' + url
+    return url
+
+
 def shape_links(url, links):
     for i, a in enumerate(links):
-        if a.startswith('//'):
-            links[i] = 'https:' + a
-        elif a.startswith('/'):
-            links[i] = url + a
+        links[i] = shape_link(url, links[i])
     return links
 
 
 def scrape_page(url):
-    html, res = connect(url)
-    if html:
-        write_html_file(url, res)
-        links = gather_links(html)
+    res = connect(url)
+    if res:
+        tree = BeautifulSoup(res, 'lxml')
+        links = gather_links(tree)
+        write_html_file(url, tree)
         return shape_links(url, links)
-    return None
 
 
 def append_page_info(url, links):
@@ -166,15 +235,23 @@ def remove_restricted(links, rstr):
     return list(filter(lambda x: rstr in x, links))
 
 
-def push_links(directory, key, links, restrict):
+def push_links(baselink, directory, expired, links, restrict):
+
+    # TODO test this more!
+
     for link in links:
-        hostname = get_hostname(link)
-        if hostname not in directory.keys():
-            directory[hostname] = [link]
-            thr = threading.Thread(target=run_thread, args=(hostname, directory, restrict))
-            thr.start()
-        else:
-            directory[hostname].append(link)
+        hostname = get_hostname(baselink, link)
+        if hostname is not None:
+            if hostname not in directory.keys():
+                directory[hostname] = [link]
+                thr = threading.Thread(target=run_thread, args=(hostname, directory, expired, restrict))
+                thr.start()
+            if hostname not in expired.keys():
+                expired[hostname] = []
+            if link not in directory[hostname] and link not in expired[hostname]:
+                directory[hostname].append(link)
+            elif link not in expired[hostname]:
+                expired[hostname].append(link)
 
 
 def next_url(links):
@@ -192,28 +269,16 @@ def has_url(url):
     return url is not None
 
 
-def get_hostname(url):
-    url_t = [u for u in url.split('/') if u]
-    if len(url_t) == 0:
-        return None
-    elif len(url_t) == 1:
-        return 'https://'+url_t[0]
-    elif url_t[0].startswith('http'):
-        return 'https://'+url_t[1]
-    else:
-        return 'https://'+url_t[0]
-
-
-def run_thread(hostname, directory, restrict):
+def run_thread(hostname, directory, expired, restrict):
     url = directory[hostname].pop(0)
     delay = get_crawl_delay(hostname)
     while limit_not_reached() and has_url(url):
-        sec_i = init_loop()
         links = scrape_page(url)
+        sec_i = init_loop()
         if links:
             append_page_info(url, links)
             links = remove_restricted(links, restrict)
-            push_links(directory, hostname, links, restrict)
+            push_links(hostname, directory, expired, links, restrict)
         url = next_url(directory[hostname])
         end_loop(delay, sec_i)
 
@@ -222,10 +287,22 @@ def run_main():
     url, pgs, rstr = init_seed('specification.csv')
     links = [url]
     directory = {}
+    expired = {}
     global TOTAL_PAGES
     TOTAL_PAGES = pgs
     init_dir()
-    push_links(directory, '', links, rstr)
+    push_links(url, directory, expired, links, rstr)
+
+    # while limit_not_reached():
+    #     time.sleep(0.5)
+
+    # print('init')
+    # time.sleep(10)
+    # print('\n')
+    # pprint.pprint(directory)
+    # print('\n\n')
+    # pprint.pprint(expired)
+    # print('\n')
 
 
 if __name__ == '__main__':

@@ -121,7 +121,7 @@ def remove_dense_link(doc, fctr=1.0):
             table_sum = float(len(table))
             anchors = [''.join(a.text_content().split()) for a in node.iter('a')]
             anchors_sum = float(sum([len(a) for a in anchors]))
-            if anchors_sum >= fctr*table_sum != 0:
+            if anchors_sum >= fctr*table_sum and anchors_sum != 0:
                 remove_nodes.append(node)
         for node in remove_nodes:
             node.getparent().remove(node)
