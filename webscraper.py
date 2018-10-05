@@ -6,10 +6,10 @@ import shutil
 import socket
 import time
 import os
+import re
 
 
 from urllib import request
-
 
 
 ERR_SHORT = 1
@@ -21,81 +21,26 @@ REPOSITORY_TOKEN = '.'
 TOTAL_PAGES = 1000
 
 
-'''
+def get_http_headers():
+    version_info = (1, 0, 25)
+    __version__ = ".".join(map(str, version_info))
+    browser_user_agent = 'superscraper/%s' % __version__
+    headers = {'User-agent': browser_user_agent}
+    return headers
 
-def connect(url):
 
-    def handle_errors(err, url, dur=0):
-        # TODO uncomment print msg
-        # print(err)
-        # print('Resuming in ', dur, 'sec...')
-        time.sleep(dur)
-
-    def success_connect(res):
-        # TODO uncomment print msg
-        # print('Successfully connected to', res.url)
-        return BeautifulSoup(res.text, 'lxml'), res
-
+def connect(url, max_errors=3):
     error_counter = 0
-    while error_counter < MAX_ERRORS:
-        try:
-            res = requests.get(url, timeout=1.0)
-            res.raise_for_status()
-        except requests.exceptions.ConnectTimeout as err:
-            handle_errors(err, url, ERR_SHORT)
-        except requests.exceptions.ReadTimeout as err:
-            handle_errors(err, url, ERR_SHORT)
-        except requests.exceptions.Timeout as err:
-            handle_errors(err, url, ERR_LONG)
-        except socket.timeout as err:
-            handle_errors(err, url, ERR_LONG)
-        except requests.exceptions.HTTPError as err:
-            handle_errors(err, url, ERR_SHORT)
-        except requests.exceptions.TooManyRedirects as err:
-            handle_errors(err, url, ERR_SHORT)
-        except requests.exceptions.ConnectionError as err:
-            handle_errors(err, url, ERR_LONG)
-        except requests.exceptions.URLRequired as err:
-            handle_errors(err, url, ERR_SHORT)
-        except TypeError as err:
-            handle_errors(err, url)
-        except ValueError as err:
-            handle_errors(err, url)
-        except AttributeError as err:
-            handle_errors(err, url)
-        except socket.error as err:
-            handle_errors(err, url, ERR_LONG)
-        except requests.exceptions.RequestException as err:
-            handle_errors(err, url, ERR_LONG)
-        else:
-            return success_connect(res)
-        finally:
-            error_counter += 1
-    return None, None
-
-'''
-
-
-def connect(url):
-
-    def get_http_headers():
-        version_info = (1, 0, 25)
-        __version__ = ".".join(map(str, version_info))
-        browser_user_agent = 'Parser/%s' % __version__
-        headers = {'User-agent': browser_user_agent}
-        return headers
-
-    error_counter = 0
-    while error_counter < MAX_ERRORS:
+    while error_counter < max_errors:
         try:
             req = request.Request(url,
                                   headers=get_http_headers())
             res = request.urlopen(req, timeout=30)
             if res is not None:
-                # print('connected to', res.geturl())
+                print('        ', 'connected to', res.geturl())
                 return res
         except Exception as err:
-            # print(err, url)
+            print('        ', err, url)
             error_counter += 1
             time.sleep(10)
 
@@ -121,25 +66,34 @@ def init_seed(path):
 
 def get_robots_txt(url):
     roburl = url+'/robots.txt'
-    if not url.startswith('http'):
-        roburl = 'https://'+roburl
-    res = connect(roburl)
+    res = connect(roburl, 1)
     if res:
         tree = BeautifulSoup(res.read(), 'lxml')
         return tree.getText()
     return ''
 
 
-def get_crawl_delay(url):
-    # make delay more specific
-    # pass dict of delay values
-    # return early if val present
-    robot_txt = get_robots_txt(url)
-    lines = [x for x in robot_txt.split('\n') if x.startswith('Crawl-delay')]
-    waits = [int(x.split(':')[1]) for x in lines]
-    delay_def = 1
-    waits.append(delay_def)
-    return max(waits)
+def get_crawl_restrictions(hostname):
+
+    txt = get_robots_txt(hostname)
+    lines = [x.lower() for x in txt.split('\n')]
+    user_agent = [i for i, x in enumerate(lines) if x.replace(' ', '') == 'user-agent:*']
+
+    disallowed = []
+    for i in user_agent:
+        j = 1
+        while i+j < len(lines) and not lines[i+j].startswith('user-agent:'):
+            line = lines[i+j]
+            if line.startswith('disallow:'):
+                disallowed.append(hostname+line.lstrip('disallow:').strip())
+            j += 1
+
+    delay_def = 3
+    delays = [int(x.split(':')[1]) for x in lines if x.startswith('crawl-delay')]
+    delays.append(delay_def)
+    delay = max(delays)
+
+    return disallowed, delay
 
 
 def init_loop():
@@ -171,20 +125,34 @@ def get_hostname(baselink, url):
 
     if 'javascript:' in url:
         return None
-    if '?lang=' in url:
+    elif '?lang=' in url:
         return None
-    if 'mailto:' in url:
+    elif 'mailto:' in url:
         return None
+    elif '.php' in url:
+        return None
+    elif '{' in url:
+        return None
+    elif '}' in url:
+        return None
+    elif '|' in url:
+        return None
+
+    # re.findall()
 
     if url.startswith('/'):
         return baselink
+    elif url.startswith('#'):
+        return baselink
+    elif url.startswith('?'):
+        return baselink
 
     if '.' in url:
-        htoks = [x for x in url.split('/') if x and '.' in x]
+        htoks = [x for x in re.split(r'\/|\?|\#', url) if '.' in x]
         if len(htoks) > 0:
-            link = htoks[0]
+            link = htoks[0].strip('/')
             return 'https://' + link
-    else:
+    elif '.' in baselink:
         return baselink
 
 
@@ -194,7 +162,7 @@ def shape_link(hostname, link):
     if url.startswith('//'):
         url = 'https:' + url
     elif url.startswith('/'):
-        url = url.strip('/')
+        url = url.lstrip('/')
         url = hostname + '/' + url
     elif url.startswith('.'):
         url = hostname
@@ -202,6 +170,7 @@ def shape_link(hostname, link):
         url = hostname
     if not url.startswith('http'):
         url = 'https://' + url
+    url = url.strip('/')
     return url
 
 
@@ -214,6 +183,7 @@ def shape_links(url, links):
 def scrape_page(url):
     res = connect(url)
     if res:
+        # status_code = res.getcode()
         tree = BeautifulSoup(res, 'lxml')
         links = gather_links(tree)
         write_html_file(url, tree)
@@ -231,14 +201,18 @@ def append_page_info(url, links):
         fobj.write(line)
 
 
-def remove_restricted(links, rstr):
-    return list(filter(lambda x: rstr in x, links))
+def remove_restricted(links, rstr, disallowed):
+    # TODO test this more!
+    fltrd = []
+    for link in links:
+        for disallow in disallowed:
+            if disallow not in link:
+                fltrd.append(link)
+    fltrd = list(filter(lambda x: rstr in x, fltrd))
+    return fltrd
 
 
 def push_links(baselink, directory, expired, links, restrict):
-
-    # TODO test this more!
-
     for link in links:
         hostname = get_hostname(baselink, link)
         if hostname is not None:
@@ -271,19 +245,20 @@ def has_url(url):
 
 def run_thread(hostname, directory, expired, restrict):
     url = directory[hostname].pop(0)
-    delay = get_crawl_delay(hostname)
+    disallowed, delay = get_crawl_restrictions(hostname)
     while limit_not_reached() and has_url(url):
         links = scrape_page(url)
         sec_i = init_loop()
         if links:
             append_page_info(url, links)
-            links = remove_restricted(links, restrict)
+            links = remove_restricted(links, restrict, disallowed)
             push_links(hostname, directory, expired, links, restrict)
         url = next_url(directory[hostname])
         end_loop(delay, sec_i)
 
 
 def run_main():
+
     url, pgs, rstr = init_seed('specification.csv')
     links = [url]
     directory = {}
@@ -293,12 +268,14 @@ def run_main():
     init_dir()
     push_links(url, directory, expired, links, rstr)
 
-    # while limit_not_reached():
-    #     time.sleep(0.5)
+    # sec_i = time.time()
+    # while threading.active_count() > 1:
+    #     time.sleep(1.0)
+    #     if (time.time() - sec_i) > 100:
+    #         break
 
     # print('init')
-    # time.sleep(10)
-    # print('\n')
+    # print('\n\n')
     # pprint.pprint(directory)
     # print('\n\n')
     # pprint.pprint(expired)
