@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from bs4 import BeautifulSoup
 import threading
 import requests
@@ -5,6 +6,7 @@ import pprint
 import shutil
 import socket
 import time
+import sys
 import os
 import re
 
@@ -29,20 +31,20 @@ def get_http_headers():
     return headers
 
 
-def connect(url, max_errors=3):
+def connect(url, max_errors=3, timeout=10):
     error_counter = 0
     while error_counter < max_errors:
         try:
             req = request.Request(url,
                                   headers=get_http_headers())
-            res = request.urlopen(req, timeout=30)
+            res = request.urlopen(req, timeout=60)
             if res is not None:
                 print('        ', 'connected to', res.geturl())
                 return res
         except Exception as err:
             print('        ', err, url)
             error_counter += 1
-            time.sleep(10)
+            time.sleep(timeout)
 
 
 def init_dir():
@@ -64,9 +66,22 @@ def init_seed(path):
     return url, pgs, rstr
 
 
+def init_crawler():
+    init_dir()
+    url, pgs, rstr = init_seed('specification.csv')
+    hostname = get_hostname(url, '')
+    links = []
+    directory = OrderedDict()
+    directory[hostname] = [url]
+    expired = OrderedDict()
+    global TOTAL_PAGES
+    TOTAL_PAGES = pgs
+    return hostname, directory, expired, links, rstr
+
+
 def get_robots_txt(url):
     roburl = url+'/robots.txt'
-    res = connect(roburl, 1)
+    res = connect(roburl, 1, 3)
     if res:
         tree = BeautifulSoup(res.read(), 'lxml')
         return tree.getText()
@@ -89,7 +104,7 @@ def get_crawl_restrictions(hostname):
             j += 1
 
     delay_def = 3
-    delays = [int(x.split(':')[1]) for x in lines if x.startswith('crawl-delay')]
+    delays = [float(x.split(':')[1]) for x in lines if x.startswith('crawl-delay')]
     delays.append(delay_def)
     delay = max(delays)
 
@@ -131,14 +146,9 @@ def get_hostname(baselink, url):
         return None
     elif '.php' in url:
         return None
-    elif '{' in url:
-        return None
-    elif '}' in url:
-        return None
-    elif '|' in url:
-        return None
 
-    # re.findall()
+    if re.findall('\(|\)|\{|\}|\| ', url):
+        return None
 
     if url.startswith('/'):
         return baselink
@@ -218,14 +228,14 @@ def push_links(baselink, directory, expired, links, restrict):
         if hostname is not None:
             if hostname not in directory.keys():
                 directory[hostname] = [link]
-                thr = threading.Thread(target=run_thread, args=(hostname, directory, expired, restrict))
-                thr.start()
+                # thr = threading.Thread(target=run_thread, args=(hostname, directory, expired, restrict))
+                # thr.start()
             if hostname not in expired.keys():
                 expired[hostname] = []
             if link not in directory[hostname] and link not in expired[hostname]:
                 directory[hostname].append(link)
-            elif link not in expired[hostname]:
-                expired[hostname].append(link)
+            # elif link not in expired[hostname]:
+            #     expired[hostname].append(link)
 
 
 def next_url(links):
@@ -243,8 +253,29 @@ def has_url(url):
     return url is not None
 
 
+def get_sub_threads():
+    return [x.name for x in threading.enumerate() if x.name != 'MainThread']
+
+
 def run_thread(hostname, directory, expired, restrict):
-    url = directory[hostname].pop(0)
+    thr = threading.Thread(target=run_hostname, args=(hostname, directory, expired, restrict))
+    thr.setName(hostname)
+    thr.start()
+    return thr
+
+
+def run_hostname(hostname, directory, expired, restrict):
+    # url = directory[hostname].pop(0)
+
+    # TODO remove, for testing
+    dirname = directory[hostname]
+
+    url = next_url(directory[hostname])
+
+    # TODO remove, for testing
+    if url is None:
+        print(hostname, dirname)
+
     disallowed, delay = get_crawl_restrictions(hostname)
     while limit_not_reached() and has_url(url):
         links = scrape_page(url)
@@ -253,39 +284,50 @@ def run_thread(hostname, directory, expired, restrict):
             append_page_info(url, links)
             links = remove_restricted(links, restrict, disallowed)
             push_links(hostname, directory, expired, links, restrict)
+        expired[hostname].append(url)
         url = next_url(directory[hostname])
         end_loop(delay, sec_i)
+    print(hostname, 'end of thread')
 
 
 def run_main():
 
-    url, pgs, rstr = init_seed('specification.csv')
-    links = [url]
-    directory = {}
-    expired = {}
-    global TOTAL_PAGES
-    TOTAL_PAGES = pgs
-    init_dir()
-    push_links(url, directory, expired, links, rstr)
+    hostname, directory, expired, links, rstr = init_crawler()
+    host_threads = OrderedDict()
 
-    # sec_i = time.time()
-    # while threading.active_count() > 1:
-    #     time.sleep(1.0)
-    #     if (time.time() - sec_i) > 100:
-    #         break
+    while limit_not_reached() or threading.active_count() > 1:
+        # host_thr = host_threads.keys()
+        # for thr in host_threads.keys():
+        #     if not host_threads[thr].is_alive():
+        #         del host_threads[thr]
 
-    # print('init')
-    # print('\n\n')
-    # pprint.pprint(directory)
-    # print('\n\n')
-    # pprint.pprint(expired)
-    # print('\n')
+        for host in directory.keys():
+            host_thr = host_threads.keys()
+
+            # if threading.active_count() < 11:
+            if host not in host_thr and len(host_thr) < 10 and len(directory[host]) > 0:
+                thr = run_thread(host, directory, expired, rstr)
+                host_threads[host] = thr
+
+        print(threading.active_count())
+
+
+
+        # print(directory)
+        # pprint.pprint(directory)
+        time.sleep(1)
+
+
+    print('\n\n')
+    pprint.pprint(directory)
+    print('\n\n')
+    pprint.pprint(expired)
+    print('\n')
+    print('goodbye!')
 
 
 if __name__ == '__main__':
     # run()
     run_main()
 
-
-# http://www.rainymood.com/
 
