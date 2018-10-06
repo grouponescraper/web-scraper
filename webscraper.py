@@ -21,6 +21,7 @@ MAX_ERRORS = 3
 CLOCK_ID = 0
 REPOSITORY_TOKEN = '.'
 TOTAL_PAGES = 1000
+MAX_SUB_THREADS = 10
 
 
 def get_http_headers():
@@ -31,7 +32,7 @@ def get_http_headers():
     return headers
 
 
-def connect(url, max_errors=3, timeout=10):
+def connect(url, max_errors=3, retry_time=10):
     error_counter = 0
     while error_counter < max_errors:
         try:
@@ -44,7 +45,7 @@ def connect(url, max_errors=3, timeout=10):
         except Exception as err:
             print('        ', err, url)
             error_counter += 1
-            time.sleep(timeout)
+            time.sleep(retry_time)
 
 
 def init_dir():
@@ -81,7 +82,7 @@ def init_crawler():
 
 def get_robots_txt(url):
     roburl = url+'/robots.txt'
-    res = connect(roburl, 1, 3)
+    res = connect(roburl, 1, 0)
     if res:
         tree = BeautifulSoup(res.read(), 'lxml')
         return tree.getText()
@@ -228,14 +229,10 @@ def push_links(baselink, directory, expired, links, restrict):
         if hostname is not None:
             if hostname not in directory.keys():
                 directory[hostname] = [link]
-                # thr = threading.Thread(target=run_thread, args=(hostname, directory, expired, restrict))
-                # thr.start()
             if hostname not in expired.keys():
                 expired[hostname] = []
             if link not in directory[hostname] and link not in expired[hostname]:
                 directory[hostname].append(link)
-            # elif link not in expired[hostname]:
-            #     expired[hostname].append(link)
 
 
 def next_url(links):
@@ -253,6 +250,10 @@ def has_url(url):
     return url is not None
 
 
+def get_wrapped_list(lst, i):
+    pass
+
+
 def get_sub_threads():
     return [x.name for x in threading.enumerate() if x.name != 'MainThread']
 
@@ -265,17 +266,7 @@ def run_thread(hostname, directory, expired, restrict):
 
 
 def run_hostname(hostname, directory, expired, restrict):
-    # url = directory[hostname].pop(0)
-
-    # TODO remove, for testing
-    dirname = directory[hostname]
-
     url = next_url(directory[hostname])
-
-    # TODO remove, for testing
-    if url is None:
-        print(hostname, dirname)
-
     disallowed, delay = get_crawl_restrictions(hostname)
     while limit_not_reached() and has_url(url):
         links = scrape_page(url)
@@ -287,36 +278,24 @@ def run_hostname(hostname, directory, expired, restrict):
         expired[hostname].append(url)
         url = next_url(directory[hostname])
         end_loop(delay, sec_i)
-    print(hostname, 'end of thread')
 
 
 def run_main():
 
     hostname, directory, expired, links, rstr = init_crawler()
-    host_threads = OrderedDict()
-
+    iter = 0
     while limit_not_reached() or threading.active_count() > 1:
-        # host_thr = host_threads.keys()
-        # for thr in host_threads.keys():
-        #     if not host_threads[thr].is_alive():
-        #         del host_threads[thr]
-
-        for host in directory.keys():
-            host_thr = host_threads.keys()
-
-            # if threading.active_count() < 11:
-            if host not in host_thr and len(host_thr) < 10 and len(directory[host]) > 0:
-                thr = run_thread(host, directory, expired, rstr)
-                host_threads[host] = thr
-
-        print(threading.active_count())
-
-
-
-        # print(directory)
-        # pprint.pprint(directory)
-        time.sleep(1)
-
+        hostnames = list(directory.keys())
+        hostnames = hostnames[iter:] + hostnames[:iter]
+        for hostname in hostnames:
+            if threading.active_count()-1 < MAX_SUB_THREADS and limit_not_reached():
+                if len(directory[hostname]) > 0:
+                    run_thread(hostname, directory, expired, rstr)
+                iter = (iter + 1) % len(hostnames)
+            else:
+                break
+        # print(threading.active_count(), end=' ')
+        # time.sleep(1)
 
     print('\n\n')
     pprint.pprint(directory)
