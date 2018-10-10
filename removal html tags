@@ -1,0 +1,6 @@
+import re
+import urllib
+data=urllib.urlopen("https://en.wikipedia.org/wiki/Main_Page").read()
+
+data = re.sub( r'<[^>]*>',' ',data ).strip()
+print data
