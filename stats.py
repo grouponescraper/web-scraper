@@ -1,4 +1,7 @@
+import matplotlib.pyplot as plt
+import pprint
 import string
+import math
 import re
 
 
@@ -49,12 +52,26 @@ def compare_texts(a, b):
     return c
 
 
+def order_index(index):
+    zipf = sorted(index.items(), key=lambda i: (1/i[1], i[0]))
+    return zipf
+
+
+def plot_zipf(index):
+    dstr_unc = [i for _, i in index]
+    plt.plot(dstr_unc)
+    plt.show()
+
+
 def run_stats():
     raw_text = read_file('files/schopenhauer.txt')
     text = remove_non_alphanumeric(raw_text)
     index = index_text(text)
-    idiff = compare_texts(index, index)
-    print(idiff)
+    # idiff = compare_texts(index, index)
+    # print(idiff)
+    zipf = order_index(index)
+    plot_zipf(zipf)
+
 
 
 if __name__ == '__main__':
