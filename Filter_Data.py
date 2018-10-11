@@ -59,14 +59,17 @@ def filter_tags(text):
     s=re_blankline.sub('\n',s) #remove extra blank lines
     return s
     
+def write_text_file(text):
+    with open('output.txt', 'w',encoding='UTF-8') as text_file:
+        text_file.write(text)
 
-
-# In[395]:
-
-
-if __name__ == '__main__':
+def run_main():
     remove_nav()
     remove_footer()
     result =filter_tags(str(soup))
-    print(result)
+    write_text_file(result)
+
+
+if __name__ == '__main__':
+    run_main()
 
