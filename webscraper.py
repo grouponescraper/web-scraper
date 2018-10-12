@@ -1,17 +1,15 @@
 from collections import OrderedDict
 from bs4 import BeautifulSoup
+from urllib import request
 import threading
-import requests
+# import requests
 import pprint
 import shutil
-import socket
+# import socket
 import time
 import sys
 import os
 import re
-
-
-from urllib import request
 
 
 ERR_SHORT = 1
@@ -21,7 +19,7 @@ MAX_ERRORS = 3
 CLOCK_ID = 0
 REPOSITORY_TOKEN = '.'
 TOTAL_PAGES = 1000
-MAX_SUB_THREADS = 10
+MAX_SUB_THREADS = 25
 
 
 def get_http_headers():
@@ -40,10 +38,10 @@ def connect(url, max_errors=3, retry_time=10):
                                   headers=get_http_headers())
             res = request.urlopen(req, timeout=60)
             if res is not None:
-                print('        ', 'connected to', res.geturl())
+                print('            ', 'connected to', res.geturl())
                 return res
         except Exception as err:
-            print('        ', err, url)
+            print('            ', err, url)
             error_counter += 1
             time.sleep(retry_time)
 
@@ -63,7 +61,7 @@ def init_seed(path):
         url, pgs, rstr = fobj.readline().strip().split(',')
     if not url.startswith('http'):
         url = 'https://' + url
-    pgs = int(pgs) if pgs.isnumeric() else 100
+    pgs = int(pgs) if pgs.isnumeric() else TOTAL_PAGES
     return url, pgs, rstr
 
 
@@ -137,51 +135,141 @@ def gather_links(html):
     return [a['href'] for a in html.find_all('a') if a.has_attr('href')]
 
 
+
+'''
+
 def get_hostname(baselink, url):
 
+    # print('hostname:', baselink, url, end=' ')
+
     if 'javascript:' in url:
+        # print()
         return None
     elif '?lang=' in url:
+        # print()
         return None
     elif 'mailto:' in url:
+        # print()
         return None
     elif '.php' in url:
+        # print()
         return None
 
-    if re.findall('\(|\)|\{|\}|\| ', url):
+    if re.findall('\(|\)|{|}|\| ', url):
+        # print()
         return None
 
+    # url = url.rstrip('.html')
     if url.startswith('/'):
+        # print(baselink)
         return baselink
     elif url.startswith('#'):
+        # print(baselink)
         return baselink
     elif url.startswith('?'):
+        # print(baselink)
         return baselink
+
+    def parse_url(url):
+        link = url.replace('www.', '')
+        # htoks = [x for x in re.split(r'\/|\?|\#', link) if '.' in x]
+        htoks = [x for x in link.split('/') if '.' in x]
+        if len(htoks) > 0:
+            link = htoks[0]
+            return 'https://' + link
 
     if '.' in url:
-        htoks = [x for x in re.split(r'\/|\?|\#', url) if '.' in x]
-        if len(htoks) > 0:
-            link = htoks[0].strip('/')
-            return 'https://' + link
+        url = parse_url(url)
+        # print(url)
+        return url
     elif '.' in baselink:
+        # url = parse_url(baselink)
+        # print(url)
         return baselink
+        # return url
+    # print()
 
+'''
+
+
+def get_hostname(baselink, resource):
+
+    if 'javascript:' in resource:
+        return None
+    elif '?lang=' in resource:
+        return None
+    elif 'mailto:' in resource:
+        return None
+    elif '.php' in resource:
+        return None
+
+    def tokenize(link):
+        lnk = [x for x in link.strip().split('/') if '.' in x]
+        if lnk:
+            return 'https://' + lnk[0]
+
+    rsrc = tokenize(resource)
+    if rsrc:
+        return rsrc
+    blnk = tokenize(baselink)
+    if blnk:
+        return blnk
+
+
+'''
 
 def shape_link(hostname, link):
-    url = link.replace('#', '') \
-        .replace('www.', '').replace('http://', 'https://')
-    if url.startswith('//'):
-        url = 'https:' + url
-    elif url.startswith('/'):
-        url = url.lstrip('/')
-        url = hostname + '/' + url
-    elif url.startswith('.'):
-        url = hostname
-    elif url == '':
-        url = hostname
+
+    # print('link:', hostname, link, end=' ')
+    url = link.strip().replace('www.', '')
+
+    if '.' in url:
+        if url.startswith('https://'):
+            pass
+        elif url.startswith('http://'):
+            url = url.replace('http://', 'https://')
+        elif url.startswith('//'):
+            url = 'https:' + url
+        if url.endswith('.html'):
+            pass
+    else:
+        if url.startswith('/'):
+            url = url.lstrip('/')
+            url = hostname + '/' + url
+        elif url.startswith('#'):
+            # url = url.lstrip('#')
+            url = hostname + '/' + url
+        elif url.startswith('?'):
+            url = hostname + link
+        elif url.startswith('.'):
+            url = hostname
+        elif url.startswith('javascript:'):
+            url = hostname
+        elif url == '':
+            url = hostname
+
     if not url.startswith('http'):
         url = 'https://' + url
-    url = url.strip('/')
+
+    url = url.strip('/').rstrip('#')
+    # print(url)
+    return url
+
+'''
+
+
+def shape_link(baselink, resource):
+    hostname = get_hostname(baselink, baselink)
+    url = re.sub('www.|http:|https:|/$|#$', '', resource.strip())
+    if url.startswith('//'):
+        url = 'https:' + url
+    elif url.startswith(('/', '?', '#', '.')):
+        url = hostname + url
+    elif url.startswith(('.', 'javascript:')) or not url:
+        url = hostname
+    elif url[0].isalnum():
+        url = hostname+'/'+url
+    # print('    link:', baselink, resource, url)
     return url
 
 
@@ -226,6 +314,7 @@ def remove_restricted(links, rstr, disallowed):
 def push_links(baselink, directory, expired, links, restrict):
     for link in links:
         hostname = get_hostname(baselink, link)
+        # print('hostname:', baselink, link, hostname)
         if hostname is not None:
             if hostname not in directory.keys():
                 directory[hostname] = [link]
@@ -297,12 +386,12 @@ def run_main():
         # print(threading.active_count(), end=' ')
         # time.sleep(1)
 
-    print('\n\n')
-    pprint.pprint(directory)
-    print('\n\n')
-    pprint.pprint(expired)
-    print('\n')
-    print('goodbye!')
+    # print('\n\n')
+    # pprint.pprint(directory)
+    # print('\n\n')
+    # pprint.pprint(expired)
+    # print('\n')
+    # print('goodbye!')
 
 
 if __name__ == '__main__':

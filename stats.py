@@ -70,8 +70,8 @@ def run_stats():
     # idiff = compare_texts(index, index)
     # print(idiff)
     zipf = order_index(index)
+    pprint.pprint(zipf)
     plot_zipf(zipf)
-
 
 
 if __name__ == '__main__':

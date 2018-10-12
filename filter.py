@@ -227,6 +227,7 @@ def noise_removal(url):
     if isinstance(doc, HtmlElement):
         doc = clean(doc)
         doc = remove_dense_link(doc, 0.75)
+        doc = remove_ad_servers(doc)
     return doc
 
 
@@ -251,15 +252,19 @@ def run_main():
     url = 'https://edition.cnn.com/2012/02/22/world/europe/uk-occupy-london/index.html'
     # url = 'https://en.wikipedia.org/wiki/Peter_and_Paul_Fortress'
 
-    doc = retrieve_html(url)
-    with open('tree_unproc.html', 'wb') as fobj:
-        fobj.write(etree.tostring(doc, pretty_print=True))
-    print('unproc')
+    # doc = retrieve_html(url)
+    # with open('tree_unproc.html', 'wb') as fobj:
+    #     fobj.write(etree.tostring(doc, pretty_print=True))
+    # print('unproc')
 
-    doc = remove_ad_servers(doc)
-    with open('tree_proc.html', 'wb') as fobj:
-        fobj.write(etree.tostring(doc, pretty_print=True))
-    print('proc')
+    # doc = remove_ad_servers(doc)
+    # with open('tree_proc.html', 'wb') as fobj:
+    #     fobj.write(etree.tostring(doc, pretty_print=True))
+    # print('proc')
+
+    doc = noise_removal(url)
+    text = format_doc(doc)
+    print(text)
 
 
 if __name__ == '__main__':
