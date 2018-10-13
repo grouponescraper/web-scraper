@@ -69,8 +69,6 @@ def init_crawler():
     init_dir()
     url, pgs, rstr = init_seed('specification.csv')
     hostname = get_hostname(url, '')
-    rstr = get_hostname(rstr, rstr)
-    # links = [url]
     directory = OrderedDict()
     directory[hostname] = [url]
 
@@ -99,18 +97,23 @@ def get_crawl_restrictions(hostname):
     user_agent = [i for i, x in enumerate(lines) if x.replace(' ', '') == 'user-agent:*']
 
     disallowed = []
+    delays = []
     for i in user_agent:
         j = 1
         while i+j < len(lines) and not lines[i+j].startswith('user-agent:'):
             line = lines[i+j]
             if line.startswith('disallow:'):
                 disallowed.append(hostname+line.lstrip('disallow:').strip())
+            if line.startswith('crawl-delay:'):
+                delays.append(float(line.lstrip('crawl-delay:')))
             j += 1
 
     delay_def = 3
-    delays = [float(x.split(':')[1]) for x in lines if x.startswith('crawl-delay')]
+    # delays = [float(x.split(':')[1]) for x in lines if x.startswith('crawl-delay')]
     delays.append(delay_def)
     delay = max(delays)
+
+    # print('max delay', threading.current_thread(), delay)
 
     return disallowed, delay
 
@@ -125,6 +128,14 @@ def end_loop(delay, seci):
     # print('    02', threading.current_thread())
     pause_time = max(0, delay-dur_sec)
     # print('    03', threading.current_thread())
+
+    # if not limit_not_reached():
+    #     sys.exit(0)
+
+    # if not limit_not_reached():
+    #     print('limit reached', threading.current_thread())
+    # print(threading.current_thread(), pause_time)
+
     time.sleep(pause_time)
     # print('    04', threading.current_thread())
     return pause_time
@@ -293,6 +304,9 @@ def run_hostname(hostname, directory, expired, restrict):
         url = next_url(directory[hostname])
         end_loop(delay, sec_i)
 
+    # if not limit_not_reached():
+    #     print('end of sub thread', threading.current_thread())
+
 
 def run_main():
 
@@ -308,8 +322,8 @@ def run_main():
                 iter = (iter + 1) % len(hostnames)
             else:
                 break
-        if not limit_not_reached():
-            print(' '.join(get_sub_threads()))
+        # if not limit_not_reached():
+        #     print('end of main', ''.join(get_sub_threads()))
         #     print(threading.active_count(), end=' ')
         #     threading.enumerate()
         time.sleep(1)
