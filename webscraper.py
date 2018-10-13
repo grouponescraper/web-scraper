@@ -19,7 +19,7 @@ MAX_ERRORS = 3
 CLOCK_ID = 0
 REPOSITORY_TOKEN = '.'
 TOTAL_PAGES = 1000
-MAX_SUB_THREADS = 25
+MAX_SUB_THREADS = 10
 
 
 def get_http_headers():
@@ -69,13 +69,18 @@ def init_crawler():
     init_dir()
     url, pgs, rstr = init_seed('specification.csv')
     hostname = get_hostname(url, '')
-    links = []
+    rstr = get_hostname(rstr, rstr)
+    # links = [url]
     directory = OrderedDict()
     directory[hostname] = [url]
+
+    # pprint.pprint(directory)
+    # pprint.pprint(links)
+
     expired = OrderedDict()
     global TOTAL_PAGES
     TOTAL_PAGES = pgs
-    return hostname, directory, expired, links, rstr
+    return hostname, directory, expired, rstr
 
 
 def get_robots_txt(url):
@@ -115,14 +120,20 @@ def init_loop():
 
 
 def end_loop(delay, seci):
+    # print('    01', threading.current_thread())
     dur_sec = time.time() - seci
+    # print('    02', threading.current_thread())
     pause_time = max(0, delay-dur_sec)
+    # print('    03', threading.current_thread())
     time.sleep(pause_time)
+    # print('    04', threading.current_thread())
     return pause_time
 
 
 def repository_fpath(url):
-    return url.replace('/', REPOSITORY_TOKEN)
+    fpath = url.replace('/', REPOSITORY_TOKEN)
+    fpath = fpath[:100]
+    return fpath
 
 
 def write_html_file(url, tree):
@@ -135,76 +146,24 @@ def gather_links(html):
     return [a['href'] for a in html.find_all('a') if a.has_attr('href')]
 
 
-
-'''
-
-def get_hostname(baselink, url):
-
-    # print('hostname:', baselink, url, end=' ')
-
-    if 'javascript:' in url:
-        # print()
-        return None
-    elif '?lang=' in url:
-        # print()
-        return None
-    elif 'mailto:' in url:
-        # print()
-        return None
-    elif '.php' in url:
-        # print()
-        return None
-
-    if re.findall('\(|\)|{|}|\| ', url):
-        # print()
-        return None
-
-    # url = url.rstrip('.html')
-    if url.startswith('/'):
-        # print(baselink)
-        return baselink
-    elif url.startswith('#'):
-        # print(baselink)
-        return baselink
-    elif url.startswith('?'):
-        # print(baselink)
-        return baselink
-
-    def parse_url(url):
-        link = url.replace('www.', '')
-        # htoks = [x for x in re.split(r'\/|\?|\#', link) if '.' in x]
-        htoks = [x for x in link.split('/') if '.' in x]
-        if len(htoks) > 0:
-            link = htoks[0]
-            return 'https://' + link
-
-    if '.' in url:
-        url = parse_url(url)
-        # print(url)
-        return url
-    elif '.' in baselink:
-        # url = parse_url(baselink)
-        # print(url)
-        return baselink
-        # return url
-    # print()
-
-'''
-
-
 def get_hostname(baselink, resource):
 
-    if 'javascript:' in resource:
-        return None
-    elif '?lang=' in resource:
-        return None
-    elif 'mailto:' in resource:
-        return None
-    elif '.php' in resource:
+    # if 'javascript:' in resource:
+    #     return None
+    # elif '?lang=' in resource:
+    #     return None
+    # elif 'mailto:' in resource:
+    #     return None
+    # elif '.php' in resource:
+    #     return None
+
+    remove = ['javascript:', '?lang=', 'mailto:', '.php', '.asp', '{', '}']
+    if any(r in resource for r in remove):
         return None
 
     def tokenize(link):
-        lnk = [x for x in link.strip().split('/') if '.' in x]
+        # lnk = [x for x in link.strip().split('/') if '.' in x]
+        lnk = [x for x in re.split('/|#|\|| ', link.strip()) if '.' in x]
         if lnk:
             return 'https://' + lnk[0]
 
@@ -216,49 +175,8 @@ def get_hostname(baselink, resource):
         return blnk
 
 
-'''
-
-def shape_link(hostname, link):
-
-    # print('link:', hostname, link, end=' ')
-    url = link.strip().replace('www.', '')
-
-    if '.' in url:
-        if url.startswith('https://'):
-            pass
-        elif url.startswith('http://'):
-            url = url.replace('http://', 'https://')
-        elif url.startswith('//'):
-            url = 'https:' + url
-        if url.endswith('.html'):
-            pass
-    else:
-        if url.startswith('/'):
-            url = url.lstrip('/')
-            url = hostname + '/' + url
-        elif url.startswith('#'):
-            # url = url.lstrip('#')
-            url = hostname + '/' + url
-        elif url.startswith('?'):
-            url = hostname + link
-        elif url.startswith('.'):
-            url = hostname
-        elif url.startswith('javascript:'):
-            url = hostname
-        elif url == '':
-            url = hostname
-
-    if not url.startswith('http'):
-        url = 'https://' + url
-
-    url = url.strip('/').rstrip('#')
-    # print(url)
-    return url
-
-'''
-
-
 def shape_link(baselink, resource):
+
     hostname = get_hostname(baselink, baselink)
     url = re.sub('www.|http:|https:|/$|#$', '', resource.strip())
     if url.startswith('//'):
@@ -280,7 +198,7 @@ def shape_links(url, links):
 
 
 def scrape_page(url):
-    res = connect(url)
+    res = connect(url, 1, 0)
     if res:
         # status_code = res.getcode()
         tree = BeautifulSoup(res, 'lxml')
@@ -312,8 +230,11 @@ def remove_restricted(links, rstr, disallowed):
 
 
 def push_links(baselink, directory, expired, links, restrict):
+    # pprint.pprint(directory)
+    # pprint.pprint(links)
     for link in links:
         hostname = get_hostname(baselink, link)
+        # print(hostname)
         # print('hostname:', baselink, link, hostname)
         if hostname is not None:
             if hostname not in directory.keys():
@@ -331,16 +252,12 @@ def next_url(links):
 
 
 def limit_not_reached():
-    global TOTAL_PAGES
-    return len(os.listdir('repository/')) < TOTAL_PAGES
+    # global TOTAL_PAGES
+    return len(os.listdir('repository')) < TOTAL_PAGES
 
 
 def has_url(url):
     return url is not None
-
-
-def get_wrapped_list(lst, i):
-    pass
 
 
 def get_sub_threads():
@@ -358,7 +275,15 @@ def run_hostname(hostname, directory, expired, restrict):
     url = next_url(directory[hostname])
     disallowed, delay = get_crawl_restrictions(hostname)
     while limit_not_reached() and has_url(url):
+
+        # print(url)
+
         links = scrape_page(url)
+
+        # pprint.pprint(directory)
+        # print(url)
+        # pprint.pprint(links)
+
         sec_i = init_loop()
         if links:
             append_page_info(url, links)
@@ -371,31 +296,33 @@ def run_hostname(hostname, directory, expired, restrict):
 
 def run_main():
 
-    hostname, directory, expired, links, rstr = init_crawler()
+    hostname, directory, expired, rstr = init_crawler()
     iter = 0
     while limit_not_reached() or threading.active_count() > 1:
         hostnames = list(directory.keys())
         hostnames = hostnames[iter:] + hostnames[:iter]
         for hostname in hostnames:
             if threading.active_count()-1 < MAX_SUB_THREADS and limit_not_reached():
-                if len(directory[hostname]) > 0:
+                if len(directory[hostname]) > 0 and hostname not in get_sub_threads():
                     run_thread(hostname, directory, expired, rstr)
                 iter = (iter + 1) % len(hostnames)
             else:
                 break
-        # print(threading.active_count(), end=' ')
-        # time.sleep(1)
+        if not limit_not_reached():
+            print(' '.join(get_sub_threads()))
+        #     print(threading.active_count(), end=' ')
+        #     threading.enumerate()
+        time.sleep(1)
 
-    # print('\n\n')
-    # pprint.pprint(directory)
-    # print('\n\n')
-    # pprint.pprint(expired)
-    # print('\n')
-    # print('goodbye!')
+    print('\n\n')
+    pprint.pprint(directory)
+    print('\n\n')
+    pprint.pprint(expired)
+    print('\n')
+    print('goodbye!')
 
 
 if __name__ == '__main__':
-    # run()
     run_main()
 
 
