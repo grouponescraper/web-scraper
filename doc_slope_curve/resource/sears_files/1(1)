@@ -1,0 +1,194 @@
+tv.freewheel.SDK._instanceQueue['Context_2']._videoAsset.requestComplete({
+	"version" : "1",
+	"networkId" : "48804",
+	"parameters" : [
+		{
+			"name" : "autoloadExtensions",
+			"category" : "profile",
+			"value" : "https:\/\/z.moatads.com\/freewheel353205095517817\/MoatFreeWheelJSPEM.js"
+		},
+		{
+			"name" : "translator.vast.loadWithCookie",
+			"category" : "profile",
+			"value" : "true"
+		},
+		{
+			"name" : "skipOverflowAdInLive",
+			"category" : "profile",
+			"value" : "true"
+		},
+		{
+			"name" : "supportErrorCallbacks",
+			"category" : "profile",
+			"value" : ""
+		},
+		{
+			"name" : "replaceMissingCompanion",
+			"category" : "profile",
+			"value" : "ad"
+		}
+	],
+	"rendererManifest" : {
+		"adRenderers" : {
+			"version" : "1",
+			"adRenderer" : [
+				{
+					"name" : "g_html5_video_mp4",
+					"url" : "class:\/\/VideoRenderer",
+					"contentType" : "video\/mp4-h264,video\/mp4,video\/m4v,video\/mp4-mpeg4,video\/mp4-mpeg4_simple,video\/m4v-h264_less_eq_level_3_baseline-640-480-less_eq_1500_kbps-aaclc,video\/mp4-h264_less_eq_level_3_baseline-640-480-less_eq_1500_kbps-aaclc,video\/mov-h264_less_eq_level_3_baseline-640-480-less_eq_1500_kbps-aaclc,video\/m4v-h264_less_level_1.3_baseline-320-240-less_eq_768_kbps-aaclc,video\/mp4-h264_less_level_1.3_baseline-320-240-less_eq_768_kbps-aaclc,video\/mov-h264_less_level_1.3_baseline-320-240-less_eq_768_kbps-aaclc,video\/m4v-mpeg4-640-480-less_eq_2500_kbps-aaclc,video\/mp4-mpeg4-640-480-less_eq_2500_kbps-aaclc,video\/mov-mpeg4-640-480-less_eq_2500_kbps-aaclc,video\/mp4-h264-baseline,",
+					"adUnit" : "video,slate,",
+					"slotType" : "preroll,midroll,postroll,",
+					"creativeApi" : "None,"
+				},
+				{
+					"name" : "g_html5_null",
+					"url" : "class:\/\/NullRenderer",
+					"contentType" : "null\/null,",
+					"adUnit" : "video,linear-animation,generic-overlay,app-interstitial,",
+					"slotType" : "preroll,midroll,postroll,overlay,display,pause_midroll,",
+					"creativeApi" : "None,"
+				},
+				{
+					"name" : "g_html5_vpaid",
+					"url" : "class:\/\/VPAIDRenderer",
+					"contentType" : "text\/js_ref,",
+					"adUnit" : "video,fixed-size-interactive,app-interstitial,",
+					"slotType" : "preroll,midroll,postroll,overlay,",
+					"creativeApi" : "VPAID,"
+				},
+				{
+					"name" : "g_html5_vast_desktop",
+					"url" : "class:\/\/VastTranslator",
+					"contentType" : "external\/vast-2,",
+					"adUnit" : "video,still-image,fixed-size-interactive,text-ad,linear-animation,generic-overlay,video-click-to-content,slate,logo,logo-click-to-content,app-interstitial,",
+					"slotType" : "preroll,midroll,postroll,overlay,display,",
+					"parameter" : [
+						{
+							"name" : "translator.vast.asyncLoad",
+							"value" : "true"
+						}
+					],
+					"creativeApi" : "VPAID,MRAID-1.0,None,"
+				},
+				{
+					"name" : "g_html5_vast3",
+					"url" : "class:\/\/VastTranslator",
+					"contentType" : "external\/vast-3,",
+					"adUnit" : "video,still-image,fixed-size-interactive,text-ad,linear-animation,generic-overlay,slate,logo,app-interstitial,",
+					"slotType" : "preroll,midroll,postroll,overlay,",
+					"parameter" : [
+						{
+							"name" : "translator.vast.asyncLoad",
+							"value" : "true"
+						}
+					],
+					"creativeApi" : "VPAID,MRAID-1.0,None,"
+				},
+				{
+					"name" : "48804:turner_html5_html_wo_mraid_since_5.13",
+					"url" : "class:\/\/HTMLRenderer",
+					"contentType" : "text\/html_doc_ref,text\/html_lit_js_wc_nw,text\/html_doc_lit_mobile,text\/html_lit_nowrapper,text\/html_lit_ns_wc_nw,",
+					"adUnit" : "video,still-image,fixed-size-interactive,text-ad,logo-text-ad,linear-animation,still-image-click-to-content,slate,logo,player-skin,app-interstitial,",
+					"slotType" : "preroll,midroll,postroll,overlay,display,",
+					"creativeApi" : "None,"
+				}
+			]
+		}
+	},
+	"visitor" : {
+		"httpHeaders" : [],
+		"state" : []
+	},
+	"errors" : {
+		"errors" : []
+	},
+	"eventCallbacks" : {
+		"eventCallbacks" : [
+			{
+				"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f075&n=48804%3B48804&t=1539449827466876016",
+				"type" : "GENERIC",
+				"use" : "BASE",
+				"showBrowser" : false,
+				"trackingUrls" : []
+			}
+		]
+	},
+	"ads" : {
+		"ads" : []
+	},
+	"siteSection" : {
+		"customId" : "cnnbusiness_business_carousel_t1",
+		"videoPlayer" : {
+			"videoAsset" : {
+				"eventCallbacks" : [
+					{
+						"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f075&n=48804%3B48804&t=1539449827466876016&f=&cn=videoView&et=i&uxnw=&uxss=&uxct=",
+						"name" : "videoView",
+						"type" : "IMPRESSION",
+						"use" : "OVERRIDE",
+						"showBrowser" : false,
+						"trackingUrls" : []
+					}
+				],
+				"customId" : "cnn-business\/2018\/10\/02\/sears-history-orig.cnn",
+				"adSlots" : [
+					{
+						"eventCallbacks" : [
+							{
+								"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f075&n=48804%3B48804&t=1539449827466876016&f=&cn=slotImpression&et=i&tpos=0&init=1&slid=0",
+								"name" : "slotImpression",
+								"type" : "IMPRESSION",
+								"use" : "OVERRIDE",
+								"showBrowser" : false,
+								"trackingUrls" : []
+							},
+							{
+								"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f075&n=48804%3B48804&t=1539449827466876016&f=&cn=slotEnd&et=i&tpos=0&init=1&slid=0",
+								"name" : "slotEnd",
+								"type" : "IMPRESSION",
+								"use" : "OVERRIDE",
+								"showBrowser" : false,
+								"trackingUrls" : []
+							}
+						],
+						"customId" : "0.0.0.219395816",
+						"compatibleDimensions" : "2560,1440",
+						"selectedAds" : [],
+						"timePosition" : "0",
+						"timePositionClass" : "preroll",
+						"adUnit" : "Standard Pre",
+						"source" : "generated"
+					},
+					{
+						"eventCallbacks" : [
+							{
+								"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f075&n=48804%3B48804&t=1539449827466876016&f=&cn=slotImpression&et=i&tpos=30&init=1&slid=1",
+								"name" : "slotImpression",
+								"type" : "IMPRESSION",
+								"use" : "OVERRIDE",
+								"showBrowser" : false,
+								"trackingUrls" : []
+							},
+							{
+								"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f075&n=48804%3B48804&t=1539449827466876016&f=&cn=slotEnd&et=i&tpos=30&init=1&slid=1",
+								"name" : "slotEnd",
+								"type" : "IMPRESSION",
+								"use" : "OVERRIDE",
+								"showBrowser" : false,
+								"trackingUrls" : []
+							}
+						],
+						"customId" : "1.0.0.638263027",
+						"selectedAds" : [],
+						"timePosition" : "30",
+						"timePositionClass" : "overlay",
+						"adUnit" : "Standard Overlay",
+						"source" : "generated"
+					}
+				]
+			},
+			"adSlots" : []
+		},
+		"adSlots" : []
+	}
+});

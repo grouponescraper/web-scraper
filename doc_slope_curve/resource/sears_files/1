@@ -1,0 +1,1083 @@
+tv.freewheel.SDK._instanceQueue['Context_1'].requestComplete({
+	"version" : "1",
+	"networkId" : "48804",
+	"parameters" : [
+		{
+			"name" : "autoloadExtensions",
+			"category" : "profile",
+			"value" : "https:\/\/z.moatads.com\/freewheel353205095517817\/MoatFreeWheelJSPEM.js"
+		},
+		{
+			"name" : "translator.vast.loadWithCookie",
+			"category" : "profile",
+			"value" : "true"
+		},
+		{
+			"name" : "skipOverflowAdInLive",
+			"category" : "profile",
+			"value" : "true"
+		},
+		{
+			"name" : "supportErrorCallbacks",
+			"category" : "profile",
+			"value" : ""
+		},
+		{
+			"name" : "replaceMissingCompanion",
+			"category" : "profile",
+			"value" : "ad"
+		}
+	],
+	"rendererManifest" : {
+		"adRenderers" : {
+			"version" : "1",
+			"adRenderer" : [
+				{
+					"name" : "g_html5_video_mp4",
+					"url" : "class:\/\/VideoRenderer",
+					"contentType" : "video\/mp4-h264,video\/mp4,video\/m4v,video\/mp4-mpeg4,video\/mp4-mpeg4_simple,video\/m4v-h264_less_eq_level_3_baseline-640-480-less_eq_1500_kbps-aaclc,video\/mp4-h264_less_eq_level_3_baseline-640-480-less_eq_1500_kbps-aaclc,video\/mov-h264_less_eq_level_3_baseline-640-480-less_eq_1500_kbps-aaclc,video\/m4v-h264_less_level_1.3_baseline-320-240-less_eq_768_kbps-aaclc,video\/mp4-h264_less_level_1.3_baseline-320-240-less_eq_768_kbps-aaclc,video\/mov-h264_less_level_1.3_baseline-320-240-less_eq_768_kbps-aaclc,video\/m4v-mpeg4-640-480-less_eq_2500_kbps-aaclc,video\/mp4-mpeg4-640-480-less_eq_2500_kbps-aaclc,video\/mov-mpeg4-640-480-less_eq_2500_kbps-aaclc,video\/mp4-h264-baseline,",
+					"adUnit" : "video,slate,",
+					"slotType" : "preroll,midroll,postroll,",
+					"creativeApi" : "None,"
+				},
+				{
+					"name" : "g_html5_null",
+					"url" : "class:\/\/NullRenderer",
+					"contentType" : "null\/null,",
+					"adUnit" : "video,linear-animation,generic-overlay,app-interstitial,",
+					"slotType" : "preroll,midroll,postroll,overlay,display,pause_midroll,",
+					"creativeApi" : "None,"
+				},
+				{
+					"name" : "g_html5_vpaid",
+					"url" : "class:\/\/VPAIDRenderer",
+					"contentType" : "text\/js_ref,",
+					"adUnit" : "video,fixed-size-interactive,app-interstitial,",
+					"slotType" : "preroll,midroll,postroll,overlay,",
+					"creativeApi" : "VPAID,"
+				},
+				{
+					"name" : "g_html5_vast_desktop",
+					"url" : "class:\/\/VastTranslator",
+					"contentType" : "external\/vast-2,",
+					"adUnit" : "video,still-image,fixed-size-interactive,text-ad,linear-animation,generic-overlay,video-click-to-content,slate,logo,logo-click-to-content,app-interstitial,",
+					"slotType" : "preroll,midroll,postroll,overlay,display,",
+					"parameter" : [
+						{
+							"name" : "translator.vast.asyncLoad",
+							"value" : "true"
+						}
+					],
+					"creativeApi" : "VPAID,MRAID-1.0,None,"
+				},
+				{
+					"name" : "g_html5_vast3",
+					"url" : "class:\/\/VastTranslator",
+					"contentType" : "external\/vast-3,",
+					"adUnit" : "video,still-image,fixed-size-interactive,text-ad,linear-animation,generic-overlay,slate,logo,app-interstitial,",
+					"slotType" : "preroll,midroll,postroll,overlay,",
+					"parameter" : [
+						{
+							"name" : "translator.vast.asyncLoad",
+							"value" : "true"
+						}
+					],
+					"creativeApi" : "VPAID,MRAID-1.0,None,"
+				},
+				{
+					"name" : "48804:turner_html5_html_wo_mraid_since_5.13",
+					"url" : "class:\/\/HTMLRenderer",
+					"contentType" : "text\/html_doc_ref,text\/html_lit_js_wc_nw,text\/html_doc_lit_mobile,text\/html_lit_nowrapper,text\/html_lit_ns_wc_nw,",
+					"adUnit" : "video,still-image,fixed-size-interactive,text-ad,logo-text-ad,linear-animation,still-image-click-to-content,slate,logo,player-skin,app-interstitial,",
+					"slotType" : "preroll,midroll,postroll,overlay,display,",
+					"creativeApi" : "None,"
+				}
+			]
+		}
+	},
+	"visitor" : {
+		"httpHeaders" : [],
+		"state" : []
+	},
+	"errors" : {
+		"errors" : []
+	},
+	"eventCallbacks" : {
+		"eventCallbacks" : [
+			{
+				"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029",
+				"type" : "GENERIC",
+				"use" : "BASE",
+				"showBrowser" : false,
+				"trackingUrls" : []
+			}
+		]
+	},
+	"ads" : {
+		"ads" : [
+			{
+				"adId" : "22389881",
+				"noPreload" : false,
+				"noLoad" : false,
+				"adUnit" : "13524",
+				"isWrapper" : false,
+				"required" : false,
+				"creatives" : [
+					{
+						"creativeId" : "3172154",
+						"baseUnit" : "video",
+						"duration" : "15",
+						"creativeRenditions" : [
+							{
+								"creativeRenditionId" : "8728395",
+								"wrapperType" : "external\/vast-2",
+								"wrapperUrl" : "https:\/\/ad.doubleclick.net\/ddm\/pfadx\/N6595.149036.TURNERSPORTSANDENTE\/B8431673.211130578;sz=0x0;ord=1203939750;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;dcmt=text\/xml",
+								"creativeApi" : "VPAID",
+								"width" : "640",
+								"height" : "360",
+								"preference" : "0",
+								"adReplicaId" : "0",
+								"parameters" : [],
+								"asset" : {
+									"id" : "8649812",
+									"name" : "Default Asset for Rendition",
+									"contentType" : "text\/js_ref",
+									"mimeType" : "text\/javascript",
+									"deliveryMethod" : "progressive"
+								},
+								"otherAssets" : []
+							},
+							{
+								"creativeRenditionId" : "8728396",
+								"wrapperType" : "external\/vast-2",
+								"wrapperUrl" : "https:\/\/ad.doubleclick.net\/ddm\/pfadx\/N6595.149036.TURNERSPORTSANDENTE\/B8431673.211130578;sz=0x0;ord=1203939750;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;dcmt=text\/xml",
+								"creativeApi" : "None",
+								"width" : "640",
+								"height" : "360",
+								"preference" : "0",
+								"bitrate" : "292",
+								"parameters" : [],
+								"asset" : {
+									"id" : "8649813",
+									"name" : "Default Asset for Rendition",
+									"contentType" : "video\/mp4-h264",
+									"mimeType" : "video\/mp4",
+									"deliveryMethod" : "progressive"
+								},
+								"otherAssets" : []
+							},
+							{
+								"creativeRenditionId" : "8728399",
+								"wrapperType" : "external\/vast-2",
+								"wrapperUrl" : "https:\/\/ad.doubleclick.net\/ddm\/pfadx\/N6595.149036.TURNERSPORTSANDENTE\/B8431673.211130578;sz=0x0;ord=1203939750;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;dcmt=text\/xml",
+								"creativeApi" : "None",
+								"width" : "854",
+								"height" : "480",
+								"preference" : "0",
+								"bitrate" : "435",
+								"parameters" : [],
+								"asset" : {
+									"id" : "8649816",
+									"name" : "Default Asset for Rendition",
+									"contentType" : "video\/mp4-h264",
+									"mimeType" : "video\/mp4",
+									"deliveryMethod" : "progressive"
+								},
+								"otherAssets" : []
+							},
+							{
+								"creativeRenditionId" : "8728400",
+								"wrapperType" : "external\/vast-2",
+								"wrapperUrl" : "https:\/\/ad.doubleclick.net\/ddm\/pfadx\/N6595.149036.TURNERSPORTSANDENTE\/B8431673.211130578;sz=0x0;ord=1203939750;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;dcmt=text\/xml",
+								"creativeApi" : "None",
+								"width" : "480",
+								"height" : "270",
+								"preference" : "0",
+								"bitrate" : "379",
+								"parameters" : [],
+								"asset" : {
+									"id" : "8649817",
+									"name" : "Default Asset for Rendition",
+									"contentType" : "video\/mp4-h264",
+									"mimeType" : "video\/mp4",
+									"deliveryMethod" : "progressive"
+								},
+								"otherAssets" : []
+							},
+							{
+								"creativeRenditionId" : "8728401",
+								"wrapperType" : "external\/vast-2",
+								"wrapperUrl" : "https:\/\/ad.doubleclick.net\/ddm\/pfadx\/N6595.149036.TURNERSPORTSANDENTE\/B8431673.211130578;sz=0x0;ord=1203939750;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;dcmt=text\/xml",
+								"creativeApi" : "None",
+								"width" : "640",
+								"height" : "360",
+								"preference" : "0",
+								"bitrate" : "946",
+								"parameters" : [],
+								"asset" : {
+									"id" : "8649818",
+									"name" : "Default Asset for Rendition",
+									"contentType" : "video\/mp4-h264",
+									"mimeType" : "video\/mp4",
+									"deliveryMethod" : "progressive"
+								},
+								"otherAssets" : []
+							},
+							{
+								"creativeRenditionId" : "8728402",
+								"wrapperType" : "external\/vast-2",
+								"wrapperUrl" : "https:\/\/ad.doubleclick.net\/ddm\/pfadx\/N6595.149036.TURNERSPORTSANDENTE\/B8431673.211130578;sz=0x0;ord=1203939750;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;dcmt=text\/xml",
+								"creativeApi" : "None",
+								"width" : "640",
+								"height" : "360",
+								"preference" : "0",
+								"bitrate" : "1296",
+								"parameters" : [],
+								"asset" : {
+									"id" : "8649819",
+									"name" : "Default Asset for Rendition",
+									"contentType" : "video\/mp4-h264",
+									"mimeType" : "video\/mp4",
+									"deliveryMethod" : "progressive"
+								},
+								"otherAssets" : []
+							},
+							{
+								"creativeRenditionId" : "8728403",
+								"wrapperType" : "external\/vast-2",
+								"wrapperUrl" : "https:\/\/ad.doubleclick.net\/ddm\/pfadx\/N6595.149036.TURNERSPORTSANDENTE\/B8431673.211130578;sz=0x0;ord=1203939750;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;dcmt=text\/xml",
+								"creativeApi" : "None",
+								"width" : "640",
+								"height" : "360",
+								"preference" : "0",
+								"bitrate" : "389",
+								"parameters" : [],
+								"asset" : {
+									"id" : "8649820",
+									"name" : "Default Asset for Rendition",
+									"contentType" : "video\/mp4-h264",
+									"mimeType" : "video\/mp4",
+									"deliveryMethod" : "progressive"
+								},
+								"otherAssets" : []
+							},
+							{
+								"creativeRenditionId" : "8728404",
+								"wrapperType" : "external\/vast-2",
+								"wrapperUrl" : "https:\/\/ad.doubleclick.net\/ddm\/pfadx\/N6595.149036.TURNERSPORTSANDENTE\/B8431673.211130578;sz=0x0;ord=1203939750;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;dcmt=text\/xml",
+								"creativeApi" : "None",
+								"width" : "720",
+								"height" : "406",
+								"preference" : "0",
+								"bitrate" : "701",
+								"parameters" : [],
+								"asset" : {
+									"id" : "8649821",
+									"name" : "Default Asset for Rendition",
+									"contentType" : "video\/mp4-h264",
+									"mimeType" : "video\/mp4",
+									"deliveryMethod" : "progressive"
+								},
+								"otherAssets" : []
+							},
+							{
+								"creativeRenditionId" : "8728405",
+								"wrapperType" : "external\/vast-2",
+								"wrapperUrl" : "https:\/\/ad.doubleclick.net\/ddm\/pfadx\/N6595.149036.TURNERSPORTSANDENTE\/B8431673.211130578;sz=0x0;ord=1203939750;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;dcmt=text\/xml",
+								"creativeApi" : "None",
+								"width" : "1024",
+								"height" : "576",
+								"preference" : "0",
+								"bitrate" : "1446",
+								"parameters" : [],
+								"asset" : {
+									"id" : "8649822",
+									"name" : "Default Asset for Rendition",
+									"contentType" : "video\/mp4-h264",
+									"mimeType" : "video\/mp4",
+									"deliveryMethod" : "progressive"
+								},
+								"otherAssets" : []
+							},
+							{
+								"creativeRenditionId" : "8728406",
+								"wrapperType" : "external\/vast-2",
+								"wrapperUrl" : "https:\/\/ad.doubleclick.net\/ddm\/pfadx\/N6595.149036.TURNERSPORTSANDENTE\/B8431673.211130578;sz=0x0;ord=1203939750;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;dcmt=text\/xml",
+								"creativeApi" : "None",
+								"width" : "640",
+								"height" : "352",
+								"preference" : "0",
+								"bitrate" : "246",
+								"parameters" : [],
+								"asset" : {
+									"id" : "8649823",
+									"name" : "Default Asset for Rendition",
+									"contentType" : "video\/mp4-h264",
+									"mimeType" : "video\/mp4",
+									"deliveryMethod" : "progressive"
+								},
+								"otherAssets" : []
+							},
+							{
+								"creativeRenditionId" : "8728407",
+								"wrapperType" : "external\/vast-2",
+								"wrapperUrl" : "https:\/\/ad.doubleclick.net\/ddm\/pfadx\/N6595.149036.TURNERSPORTSANDENTE\/B8431673.211130578;sz=0x0;ord=1203939750;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;dcmt=text\/xml",
+								"creativeApi" : "None",
+								"width" : "872",
+								"height" : "480",
+								"preference" : "0",
+								"bitrate" : "456",
+								"parameters" : [],
+								"asset" : {
+									"id" : "8649824",
+									"name" : "Default Asset for Rendition",
+									"contentType" : "video\/mp4-h264",
+									"mimeType" : "video\/mp4",
+									"deliveryMethod" : "progressive"
+								},
+								"otherAssets" : []
+							},
+							{
+								"creativeRenditionId" : "8728408",
+								"wrapperType" : "external\/vast-2",
+								"wrapperUrl" : "https:\/\/ad.doubleclick.net\/ddm\/pfadx\/N6595.149036.TURNERSPORTSANDENTE\/B8431673.211130578;sz=0x0;ord=1203939750;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;dcmt=text\/xml",
+								"creativeApi" : "None",
+								"width" : "854",
+								"height" : "470",
+								"preference" : "0",
+								"bitrate" : "307",
+								"parameters" : [],
+								"asset" : {
+									"id" : "8649825",
+									"name" : "Default Asset for Rendition",
+									"contentType" : "video\/mp4-h264",
+									"mimeType" : "video\/mp4",
+									"deliveryMethod" : "progressive"
+								},
+								"otherAssets" : []
+							},
+							{
+								"creativeRenditionId" : "8728409",
+								"wrapperType" : "external\/vast-2",
+								"wrapperUrl" : "https:\/\/ad.doubleclick.net\/ddm\/pfadx\/N6595.149036.TURNERSPORTSANDENTE\/B8431673.211130578;sz=0x0;ord=1203939750;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;dcmt=text\/xml",
+								"creativeApi" : "None",
+								"width" : "480",
+								"height" : "264",
+								"preference" : "0",
+								"bitrate" : "383",
+								"parameters" : [],
+								"asset" : {
+									"id" : "8649826",
+									"name" : "Default Asset for Rendition",
+									"contentType" : "video\/mp4-h264",
+									"mimeType" : "video\/mp4",
+									"deliveryMethod" : "progressive"
+								},
+								"otherAssets" : []
+							},
+							{
+								"creativeRenditionId" : "8728410",
+								"wrapperType" : "external\/vast-2",
+								"wrapperUrl" : "https:\/\/ad.doubleclick.net\/ddm\/pfadx\/N6595.149036.TURNERSPORTSANDENTE\/B8431673.211130578;sz=0x0;ord=1203939750;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;dcmt=text\/xml",
+								"creativeApi" : "None",
+								"width" : "640",
+								"height" : "352",
+								"preference" : "0",
+								"bitrate" : "960",
+								"parameters" : [],
+								"asset" : {
+									"id" : "8649827",
+									"name" : "Default Asset for Rendition",
+									"contentType" : "video\/mp4-h264",
+									"mimeType" : "video\/mp4",
+									"deliveryMethod" : "progressive"
+								},
+								"otherAssets" : []
+							},
+							{
+								"creativeRenditionId" : "8728411",
+								"wrapperType" : "external\/vast-2",
+								"wrapperUrl" : "https:\/\/ad.doubleclick.net\/ddm\/pfadx\/N6595.149036.TURNERSPORTSANDENTE\/B8431673.211130578;sz=0x0;ord=1203939750;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;dcmt=text\/xml",
+								"creativeApi" : "None",
+								"width" : "640",
+								"height" : "352",
+								"preference" : "0",
+								"bitrate" : "986",
+								"parameters" : [],
+								"asset" : {
+									"id" : "8649828",
+									"name" : "Default Asset for Rendition",
+									"contentType" : "video\/mp4-h264",
+									"mimeType" : "video\/mp4",
+									"deliveryMethod" : "progressive"
+								},
+								"otherAssets" : []
+							},
+							{
+								"creativeRenditionId" : "8728412",
+								"wrapperType" : "external\/vast-2",
+								"wrapperUrl" : "https:\/\/ad.doubleclick.net\/ddm\/pfadx\/N6595.149036.TURNERSPORTSANDENTE\/B8431673.211130578;sz=0x0;ord=1203939750;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;dcmt=text\/xml",
+								"creativeApi" : "None",
+								"width" : "640",
+								"height" : "352",
+								"preference" : "0",
+								"bitrate" : "389",
+								"parameters" : [],
+								"asset" : {
+									"id" : "8649829",
+									"name" : "Default Asset for Rendition",
+									"contentType" : "video\/mp4-h264",
+									"mimeType" : "video\/mp4",
+									"deliveryMethod" : "progressive"
+								},
+								"otherAssets" : []
+							},
+							{
+								"creativeRenditionId" : "8728413",
+								"wrapperType" : "external\/vast-2",
+								"wrapperUrl" : "https:\/\/ad.doubleclick.net\/ddm\/pfadx\/N6595.149036.TURNERSPORTSANDENTE\/B8431673.211130578;sz=0x0;ord=1203939750;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;dcmt=text\/xml",
+								"creativeApi" : "None",
+								"width" : "720",
+								"height" : "396",
+								"preference" : "0",
+								"bitrate" : "700",
+								"parameters" : [],
+								"asset" : {
+									"id" : "8649830",
+									"name" : "Default Asset for Rendition",
+									"contentType" : "video\/mp4-h264",
+									"mimeType" : "video\/mp4",
+									"deliveryMethod" : "progressive"
+								},
+								"otherAssets" : []
+							},
+							{
+								"creativeRenditionId" : "8728414",
+								"wrapperType" : "external\/vast-2",
+								"wrapperUrl" : "https:\/\/ad.doubleclick.net\/ddm\/pfadx\/N6595.149036.TURNERSPORTSANDENTE\/B8431673.211130578;sz=0x0;ord=1203939750;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;dcmt=text\/xml",
+								"creativeApi" : "None",
+								"width" : "872",
+								"height" : "480",
+								"preference" : "0",
+								"bitrate" : "1425",
+								"parameters" : [],
+								"asset" : {
+									"id" : "8649831",
+									"name" : "Default Asset for Rendition",
+									"contentType" : "video\/mp4-h264",
+									"mimeType" : "video\/mp4",
+									"deliveryMethod" : "progressive"
+								},
+								"otherAssets" : []
+							}
+						],
+						"parameters" : [
+							{
+								"name" : "_fw_advertiser_name",
+								"value" : "GOVT. EMPLOYEES INS. CO.\/GEICO"
+							},
+							{
+								"name" : "hulu_industry",
+								"value" : "Insurance- Auto, Life, Home, Other :"
+							},
+							{
+								"name" : "ias_parameters",
+								"value" : "anID=928791;reqNetworkId=48804;adNetworkId=48804;advertiserId=653707;campaignId=22389756;ioId=22389757;ioExternalId=117204;placementId=22389880;adUnitId=13524;seriesId=;assetId=178698104;assetCustomId=cnn-business\/2018\/10\/02\/sears-history-orig.cnn;siteId=g734273;sectionId=8728962;creativeId=3172154;renditionId= 8728395;renditionDuration=15;timePositionClass=preroll;pageType=;slotDim=2560x1440;slotId=0.0.0.1807392841;prof=turner_html5_pem;cpxInd=cpx-non;transId=1539449827543974029"
+							},
+							{
+								"name" : "moat",
+								"value" : "48804;48804;653707;22389756;22389757;117204;22389880;13524;;g734273;8728962;178698104;cnn-business\/2018\/10\/02\/sears-history-orig.cnn;3172154;8728395;15;preroll;;turner_html5_pem;cpx-non;1539449827543974029"
+							},
+							{
+								"name" : "moat_callback",
+								"value" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&r=48804&adid=22389881&reid=8728395&arid=0&iw=&uxnw=&uxss=&uxct=&absid=&trigid=&et=i&cn=concreteEvent"
+							},
+							{
+								"name" : "moat_on_youtube",
+								"value" : "48804;48804;653707;22389756;22389757;117204;22389880;13524;;g734273;8728962;178698104;cnn-business\/2018\/10\/02\/sears-history-orig.cnn;3172154;8728395;15;preroll;;turner_html5_pem;cpx-“non”;1539449827543974029;"
+							}
+						]
+					}
+				]
+			},
+			{
+				"adId" : "27744948",
+				"noPreload" : false,
+				"noLoad" : false,
+				"adUnit" : "13524",
+				"isWrapper" : false,
+				"required" : false,
+				"creatives" : [
+					{
+						"creativeId" : "3234497",
+						"baseUnit" : "video",
+						"duration" : "30",
+						"creativeRenditions" : [
+							{
+								"creativeRenditionId" : "8966966",
+								"wrapperType" : "external\/vast-2",
+								"wrapperUrl" : "https:\/\/eq97f-3ak3i.ads.tremorhub.com\/ad\/tag?adCode=eq97f-5coqo&playerWidth=2560&playerHeight=1440&playerPosition=1&srcPageUrl=https%3A\/\/www.cnn.com\/2018\/10\/12\/business\/sears-bankruptcy\/index.html&contentLength=113",
+								"creativeApi" : "VPAID",
+								"preference" : "0",
+								"parameters" : [],
+								"asset" : {
+									"id" : "8887914",
+									"name" : "Default Asset for Rendition",
+									"contentType" : "text\/js_ref",
+									"mimeType" : "text\/javascript",
+									"deliveryMethod" : "progressive"
+								},
+								"otherAssets" : []
+							}
+						],
+						"parameters" : [
+							{
+								"name" : "_fw_advertiser_name",
+								"value" : "Telaria"
+							},
+							{
+								"name" : "hulu_industry",
+								"value" : ""
+							},
+							{
+								"name" : "ias_parameters",
+								"value" : "anID=928791;reqNetworkId=48804;adNetworkId=48804;advertiserId=775990;campaignId=25582481;ioId=25582482;ioExternalId=;placementId=27744947;adUnitId=13524;seriesId=;assetId=178698104;assetCustomId=cnn-business\/2018\/10\/02\/sears-history-orig.cnn;siteId=g734273;sectionId=8728962;creativeId=3234497;renditionId= 8966966;renditionDuration=30;timePositionClass=preroll;pageType=;slotDim=2560x1440;slotId=0.0.0.1807392841;prof=turner_html5_pem;cpxInd=cpx-non;transId=1539449827543974029"
+							},
+							{
+								"name" : "moat",
+								"value" : "48804;48804;775990;25582481;25582482;;27744947;13524;;g734273;8728962;178698104;cnn-business\/2018\/10\/02\/sears-history-orig.cnn;3234497;8966966;30;preroll;;turner_html5_pem;cpx-non;1539449827543974029"
+							},
+							{
+								"name" : "moat_callback",
+								"value" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&r=48804&adid=27744948&reid=8966966&arid=0&iw=&uxnw=&uxss=&uxct=&absid=&trigid=&et=i&cn=concreteEvent"
+							},
+							{
+								"name" : "moat_on_youtube",
+								"value" : "48804;48804;775990;25582481;25582482;;27744947;13524;;g734273;8728962;178698104;cnn-business\/2018\/10\/02\/sears-history-orig.cnn;3234497;8966966;30;preroll;;turner_html5_pem;cpx-“non”;1539449827543974029;"
+							}
+						]
+					}
+				]
+			},
+			{
+				"adId" : "27745294",
+				"noPreload" : false,
+				"noLoad" : false,
+				"adUnit" : "13524",
+				"isWrapper" : false,
+				"required" : false,
+				"creatives" : [
+					{
+						"creativeId" : "3136266",
+						"baseUnit" : "video",
+						"duration" : "30",
+						"creativeRenditions" : [
+							{
+								"creativeRenditionId" : "8597863",
+								"wrapperType" : "external\/vast-2",
+								"wrapperUrl" : "https:\/\/ib.adnxs.com\/ptv?id=12552909&vmaxduration=30&vwidth=2560&vheight=1440&referrer=http%3A\/\/money.cnn.com\/",
+								"creativeApi" : "VPAID",
+								"preference" : "0",
+								"parameters" : [],
+								"asset" : {
+									"id" : "8519492",
+									"name" : "Default Asset for Rendition",
+									"contentType" : "text\/js_ref",
+									"mimeType" : "text\/javascript",
+									"deliveryMethod" : "progressive"
+								},
+								"otherAssets" : []
+							}
+						],
+						"parameters" : [
+							{
+								"name" : "_fw_advertiser_name",
+								"value" : "Appnexus"
+							},
+							{
+								"name" : "hulu_industry",
+								"value" : ""
+							},
+							{
+								"name" : "ias_parameters",
+								"value" : "anID=928791;reqNetworkId=48804;adNetworkId=48804;advertiserId=701567;campaignId=21530752;ioId=21530753;ioExternalId=;placementId=27745293;adUnitId=13524;seriesId=;assetId=178698104;assetCustomId=cnn-business\/2018\/10\/02\/sears-history-orig.cnn;siteId=g734273;sectionId=8728962;creativeId=3136266;renditionId= 8597863;renditionDuration=30;timePositionClass=preroll;pageType=;slotDim=2560x1440;slotId=0.0.0.1807392841;prof=turner_html5_pem;cpxInd=cpx-non;transId=1539449827543974029"
+							},
+							{
+								"name" : "moat",
+								"value" : "48804;48804;701567;21530752;21530753;;27745293;13524;;g734273;8728962;178698104;cnn-business\/2018\/10\/02\/sears-history-orig.cnn;3136266;8597863;30;preroll;;turner_html5_pem;cpx-non;1539449827543974029"
+							},
+							{
+								"name" : "moat_callback",
+								"value" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&r=48804&adid=27745294&reid=8597863&arid=0&iw=&uxnw=&uxss=&uxct=&absid=&trigid=&et=i&cn=concreteEvent"
+							},
+							{
+								"name" : "moat_on_youtube",
+								"value" : "48804;48804;701567;21530752;21530753;;27745293;13524;;g734273;8728962;178698104;cnn-business\/2018\/10\/02\/sears-history-orig.cnn;3136266;8597863;30;preroll;;turner_html5_pem;cpx-“non”;1539449827543974029;"
+							}
+						]
+					}
+				]
+			},
+			{
+				"adId" : "27745671",
+				"noPreload" : false,
+				"noLoad" : false,
+				"adUnit" : "13524",
+				"isWrapper" : false,
+				"required" : false,
+				"creatives" : [
+					{
+						"creativeId" : "3024746",
+						"baseUnit" : "video",
+						"duration" : "30",
+						"creativeRenditions" : [
+							{
+								"creativeRenditionId" : "8173606",
+								"wrapperType" : "external\/vast-2",
+								"wrapperUrl" : "https:\/\/ima3vpaid.appspot.com\/?adTagUrl=https%3A%2F%2Fgoogleads.g.doubleclick.net%2Fpagead%2Fads%3Fclient%3Dca-video-pub-7439281311086140%26slotname%3D3181824692%26ad_type%3Dvideo%26description_url%3Dwww.cnn.com%26max_ad_duration%3D30000%26sdmax%3D60000%26videoad_start_delay%3D0%26hl%3Den&type=js",
+								"creativeApi" : "VPAID",
+								"width" : "640",
+								"height" : "480",
+								"preference" : "0",
+								"parameters" : [],
+								"asset" : {
+									"id" : "8096497",
+									"name" : "Default Asset for Rendition",
+									"contentType" : "text\/js_ref",
+									"mimeType" : "text\/javascript",
+									"deliveryMethod" : "progressive"
+								},
+								"otherAssets" : []
+							}
+						],
+						"parameters" : [
+							{
+								"name" : "_fw_advertiser_name",
+								"value" : "Google AdX"
+							},
+							{
+								"name" : "hulu_industry",
+								"value" : "Other:"
+							},
+							{
+								"name" : "ias_parameters",
+								"value" : "anID=928791;reqNetworkId=48804;adNetworkId=48804;advertiserId=692337;campaignId=20340958;ioId=20340959;ioExternalId=;placementId=27745670;adUnitId=13524;seriesId=;assetId=178698104;assetCustomId=cnn-business\/2018\/10\/02\/sears-history-orig.cnn;siteId=g734273;sectionId=8728962;creativeId=3024746;renditionId= 8173606;renditionDuration=30;timePositionClass=preroll;pageType=;slotDim=2560x1440;slotId=0.0.0.1807392841;prof=turner_html5_pem;cpxInd=cpx-non;transId=1539449827543974029"
+							},
+							{
+								"name" : "moat",
+								"value" : "48804;48804;692337;20340958;20340959;;27745670;13524;;g734273;8728962;178698104;cnn-business\/2018\/10\/02\/sears-history-orig.cnn;3024746;8173606;30;preroll;;turner_html5_pem;cpx-non;1539449827543974029"
+							},
+							{
+								"name" : "moat_callback",
+								"value" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&r=48804&adid=27745671&reid=8173606&arid=0&iw=&uxnw=&uxss=&uxct=&absid=&trigid=&et=i&cn=concreteEvent"
+							},
+							{
+								"name" : "moat_on_youtube",
+								"value" : "48804;48804;692337;20340958;20340959;;27745670;13524;;g734273;8728962;178698104;cnn-business\/2018\/10\/02\/sears-history-orig.cnn;3024746;8173606;30;preroll;;turner_html5_pem;cpx-“non”;1539449827543974029;"
+							}
+						]
+					}
+				]
+			},
+			{
+				"adId" : "27748138",
+				"noPreload" : false,
+				"noLoad" : false,
+				"adUnit" : "13524",
+				"isWrapper" : false,
+				"required" : false,
+				"creatives" : [
+					{
+						"creativeId" : "3824254",
+						"baseUnit" : "video",
+						"duration" : "30",
+						"creativeRenditions" : [
+							{
+								"creativeRenditionId" : "11137695",
+								"wrapperType" : "external\/vast-2",
+								"wrapperUrl" : "https:\/\/optimized-by.rubiconproject.com\/a\/api\/vast.xml?account_id=11078&site_id=53198&zone_id=1036390&size_id=201&tg_c.language=en&width=2560&height=1440",
+								"creativeApi" : "None",
+								"preference" : "0",
+								"parameters" : [],
+								"asset" : {
+									"id" : "11055252",
+									"name" : "Default Asset for Rendition",
+									"contentType" : "video\/mp4",
+									"mimeType" : "video\/mp4",
+									"deliveryMethod" : "progressive"
+								},
+								"otherAssets" : []
+							}
+						],
+						"parameters" : [
+							{
+								"name" : "_fw_advertiser_name",
+								"value" : "RUBICON"
+							},
+							{
+								"name" : "hulu_industry",
+								"value" : ""
+							},
+							{
+								"name" : "ias_parameters",
+								"value" : "anID=928791;reqNetworkId=48804;adNetworkId=48804;advertiserId=317744;campaignId=20322919;ioId=20322920;ioExternalId=;placementId=27748137;adUnitId=13524;seriesId=;assetId=178698104;assetCustomId=cnn-business\/2018\/10\/02\/sears-history-orig.cnn;siteId=g734273;sectionId=8728962;creativeId=3824254;renditionId= 11137695;renditionDuration=30;timePositionClass=preroll;pageType=;slotDim=2560x1440;slotId=0.0.0.1807392841;prof=turner_html5_pem;cpxInd=cpx-non;transId=1539449827543974029"
+							},
+							{
+								"name" : "moat",
+								"value" : "48804;48804;317744;20322919;20322920;;27748137;13524;;g734273;8728962;178698104;cnn-business\/2018\/10\/02\/sears-history-orig.cnn;3824254;11137695;30;preroll;;turner_html5_pem;cpx-non;1539449827543974029"
+							},
+							{
+								"name" : "moat_callback",
+								"value" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&r=48804&adid=27748138&reid=11137695&arid=0&iw=&uxnw=&uxss=&uxct=&absid=&trigid=&et=i&cn=concreteEvent"
+							},
+							{
+								"name" : "moat_on_youtube",
+								"value" : "48804;48804;317744;20322919;20322920;;27748137;13524;;g734273;8728962;178698104;cnn-business\/2018\/10\/02\/sears-history-orig.cnn;3824254;11137695;30;preroll;;turner_html5_pem;cpx-“non”;1539449827543974029;"
+							}
+						]
+					}
+				]
+			},
+			{
+				"adId" : "27749110",
+				"noPreload" : false,
+				"noLoad" : false,
+				"adUnit" : "13524",
+				"isWrapper" : false,
+				"required" : false,
+				"creatives" : [
+					{
+						"creativeId" : "3704859",
+						"baseUnit" : "video",
+						"duration" : "30",
+						"creativeRenditions" : [
+							{
+								"creativeRenditionId" : "10553274",
+								"wrapperType" : "external\/vast-2",
+								"wrapperUrl" : "https:\/\/search.spotxchange.com\/vast\/2.0\/229256?VPAID=JS&content_page_url=https%3A\/\/www.cnn.com\/2018\/10\/12\/business\/sears-bankruptcy\/index.html&cb=0.0.0.1807392841&player_width=1280&player_height=720",
+								"creativeApi" : "None",
+								"preference" : "0",
+								"parameters" : [],
+								"asset" : {
+									"id" : "10472331",
+									"name" : "Default Asset for Rendition",
+									"contentType" : "text\/js_ref",
+									"mimeType" : "text\/javascript",
+									"deliveryMethod" : "progressive"
+								},
+								"otherAssets" : []
+							}
+						],
+						"parameters" : [
+							{
+								"name" : "_fw_advertiser_name",
+								"value" : "SpotX"
+							},
+							{
+								"name" : "hulu_industry",
+								"value" : ""
+							},
+							{
+								"name" : "ias_parameters",
+								"value" : "anID=928791;reqNetworkId=48804;adNetworkId=48804;advertiserId=774733;campaignId=25289031;ioId=25289032;ioExternalId=;placementId=27749109;adUnitId=13524;seriesId=;assetId=178698104;assetCustomId=cnn-business\/2018\/10\/02\/sears-history-orig.cnn;siteId=g734273;sectionId=8728962;creativeId=3704859;renditionId= 10553274;renditionDuration=30;timePositionClass=preroll;pageType=;slotDim=2560x1440;slotId=0.0.0.1807392841;prof=turner_html5_pem;cpxInd=cpx-non;transId=1539449827543974029"
+							},
+							{
+								"name" : "moat",
+								"value" : "48804;48804;774733;25289031;25289032;;27749109;13524;;g734273;8728962;178698104;cnn-business\/2018\/10\/02\/sears-history-orig.cnn;3704859;10553274;30;preroll;;turner_html5_pem;cpx-non;1539449827543974029"
+							},
+							{
+								"name" : "moat_callback",
+								"value" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&r=48804&adid=27749110&reid=10553274&arid=0&iw=&uxnw=&uxss=&uxct=&absid=&trigid=&et=i&cn=concreteEvent"
+							},
+							{
+								"name" : "moat_on_youtube",
+								"value" : "48804;48804;774733;25289031;25289032;;27749109;13524;;g734273;8728962;178698104;cnn-business\/2018\/10\/02\/sears-history-orig.cnn;3704859;10553274;30;preroll;;turner_html5_pem;cpx-“non”;1539449827543974029;"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	"siteSection" : {
+		"customId" : "cnnbusiness_business_carousel_t1",
+		"videoPlayer" : {
+			"videoAsset" : {
+				"eventCallbacks" : [
+					{
+						"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&cn=videoView&et=i&uxnw=&uxss=&uxct=",
+						"name" : "videoView",
+						"type" : "IMPRESSION",
+						"use" : "OVERRIDE",
+						"showBrowser" : false,
+						"trackingUrls" : []
+					}
+				],
+				"customId" : "cnn-business\/2018\/10\/02\/sears-history-orig.cnn",
+				"adSlots" : [
+					{
+						"eventCallbacks" : [
+							{
+								"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&cn=slotImpression&et=i&tpos=0&init=1&slid=0",
+								"name" : "slotImpression",
+								"type" : "IMPRESSION",
+								"use" : "OVERRIDE",
+								"showBrowser" : false,
+								"trackingUrls" : []
+							},
+							{
+								"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&cn=slotEnd&et=i&tpos=0&init=1&slid=0",
+								"name" : "slotEnd",
+								"type" : "IMPRESSION",
+								"use" : "OVERRIDE",
+								"showBrowser" : false,
+								"trackingUrls" : []
+							}
+						],
+						"customId" : "0.0.0.1807392841",
+						"compatibleDimensions" : "2560,1440",
+						"selectedAds" : [
+							{
+								"eventCallbacks" : [
+									{
+										"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&r=48804&adid=22389881&reid=8728395&arid=0&iw=&uxnw=&uxss=&uxct=",
+										"type" : "GENERIC",
+										"use" : "BASE",
+										"showBrowser" : false,
+										"trackingUrls" : []
+									},
+									{
+										"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&r=48804&adid=22389881&reid=8728395&arid=0&auid=&cn=defaultImpression&et=i&_cc=22389881,8728395,,,1539449827,1&tpos=0&iw=&uxnw=&uxss=&uxct=&init=1&asid=178698104&ssid=8728962&cr=https%3A\/\/p.ads.roku.com\/v1\/tin\/%3FcID%3Dturner_geico_6252018%26evType%3D97%26plID%3D22389880%26crID%3D3172154%26deID%3D%26chID%3DROKU_ADS_APP_ID%26lat%3DROKU_ADS_LIMIT_TRACKING",
+										"name" : "defaultImpression",
+										"type" : "IMPRESSION",
+										"use" : "OVERRIDE",
+										"showBrowser" : false,
+										"trackingUrls" : []
+									},
+									{
+										"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&r=48804&adid=22389881&reid=8728395&arid=0&auid=&cn=defaultClick&et=c&_cc=&tpos=0&cr=",
+										"name" : "defaultClick",
+										"type" : "CLICK",
+										"use" : "OVERRIDE",
+										"showBrowser" : false,
+										"trackingUrls" : []
+									}
+								],
+								"adId" : "22389881",
+								"creativeId" : "3172154",
+								"replicaId" : "0",
+								"networkId" : "48804",
+								"creativeRenditionId" : "8728395",
+								"companionAds" : [],
+								"fallbackAds" : [
+									{
+										"eventCallbacks" : [
+											{
+												"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&r=48804&adid=27749110&reid=10553274&arid=0&iw=&uxnw=&uxss=&uxct=",
+												"type" : "GENERIC",
+												"use" : "BASE",
+												"showBrowser" : false,
+												"trackingUrls" : []
+											},
+											{
+												"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&r=48804&adid=27749110&reid=10553274&arid=0&auid=&cn=defaultImpression&et=i&_cc=27749110,10553274,,,1539449827,1&tpos=0&iw=&uxnw=&uxss=&uxct=&init=1&cr=",
+												"name" : "defaultImpression",
+												"type" : "IMPRESSION",
+												"use" : "OVERRIDE",
+												"showBrowser" : false,
+												"trackingUrls" : []
+											},
+											{
+												"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&r=48804&adid=27749110&reid=10553274&arid=0&auid=&cn=defaultClick&et=c&_cc=&tpos=0&cr=",
+												"name" : "defaultClick",
+												"type" : "CLICK",
+												"use" : "OVERRIDE",
+												"showBrowser" : false,
+												"trackingUrls" : []
+											}
+										],
+										"adId" : "27749110",
+										"creativeId" : "3704859",
+										"replicaId" : "0",
+										"networkId" : "48804",
+										"creativeRenditionId" : "10553274",
+										"companionAds" : [],
+										"fallbackAds" : []
+									},
+									{
+										"eventCallbacks" : [
+											{
+												"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&r=48804&adid=27748138&reid=11137695&arid=0&iw=&uxnw=&uxss=&uxct=",
+												"type" : "GENERIC",
+												"use" : "BASE",
+												"showBrowser" : false,
+												"trackingUrls" : []
+											},
+											{
+												"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&r=48804&adid=27748138&reid=11137695&arid=0&auid=&cn=defaultImpression&et=i&_cc=27748138,11137695,,,1539449827,1&tpos=0&iw=&uxnw=&uxss=&uxct=&init=1&cr=",
+												"name" : "defaultImpression",
+												"type" : "IMPRESSION",
+												"use" : "OVERRIDE",
+												"showBrowser" : false,
+												"trackingUrls" : []
+											},
+											{
+												"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&r=48804&adid=27748138&reid=11137695&arid=0&auid=&cn=defaultClick&et=c&_cc=&tpos=0&cr=",
+												"name" : "defaultClick",
+												"type" : "CLICK",
+												"use" : "OVERRIDE",
+												"showBrowser" : false,
+												"trackingUrls" : []
+											}
+										],
+										"adId" : "27748138",
+										"creativeId" : "3824254",
+										"replicaId" : "0",
+										"networkId" : "48804",
+										"creativeRenditionId" : "11137695",
+										"companionAds" : [],
+										"fallbackAds" : []
+									},
+									{
+										"eventCallbacks" : [
+											{
+												"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&r=48804&adid=27745671&reid=8173606&arid=0&iw=&uxnw=&uxss=&uxct=",
+												"type" : "GENERIC",
+												"use" : "BASE",
+												"showBrowser" : false,
+												"trackingUrls" : []
+											},
+											{
+												"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&r=48804&adid=27745671&reid=8173606&arid=0&auid=&cn=defaultImpression&et=i&_cc=27745671,8173606,,,1539449827,1&tpos=0&iw=&uxnw=&uxss=&uxct=&init=1&cr=",
+												"name" : "defaultImpression",
+												"type" : "IMPRESSION",
+												"use" : "OVERRIDE",
+												"showBrowser" : false,
+												"trackingUrls" : []
+											},
+											{
+												"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&r=48804&adid=27745671&reid=8173606&arid=0&auid=&cn=defaultClick&et=c&_cc=&tpos=0&cr=",
+												"name" : "defaultClick",
+												"type" : "CLICK",
+												"use" : "OVERRIDE",
+												"showBrowser" : false,
+												"trackingUrls" : []
+											}
+										],
+										"adId" : "27745671",
+										"creativeId" : "3024746",
+										"replicaId" : "0",
+										"networkId" : "48804",
+										"creativeRenditionId" : "8173606",
+										"companionAds" : [],
+										"fallbackAds" : []
+									},
+									{
+										"eventCallbacks" : [
+											{
+												"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&r=48804&adid=27745294&reid=8597863&arid=0&iw=&uxnw=&uxss=&uxct=",
+												"type" : "GENERIC",
+												"use" : "BASE",
+												"showBrowser" : false,
+												"trackingUrls" : []
+											},
+											{
+												"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&r=48804&adid=27745294&reid=8597863&arid=0&auid=&cn=defaultImpression&et=i&_cc=27745294,8597863,,,1539449827,1&tpos=0&iw=&uxnw=&uxss=&uxct=&init=1&cr=",
+												"name" : "defaultImpression",
+												"type" : "IMPRESSION",
+												"use" : "OVERRIDE",
+												"showBrowser" : false,
+												"trackingUrls" : []
+											},
+											{
+												"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&r=48804&adid=27745294&reid=8597863&arid=0&auid=&cn=defaultClick&et=c&_cc=&tpos=0&cr=",
+												"name" : "defaultClick",
+												"type" : "CLICK",
+												"use" : "OVERRIDE",
+												"showBrowser" : false,
+												"trackingUrls" : []
+											}
+										],
+										"adId" : "27745294",
+										"creativeId" : "3136266",
+										"replicaId" : "0",
+										"networkId" : "48804",
+										"creativeRenditionId" : "8597863",
+										"companionAds" : [],
+										"fallbackAds" : []
+									},
+									{
+										"eventCallbacks" : [
+											{
+												"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&r=48804&adid=27744948&reid=8966966&arid=0&iw=&uxnw=&uxss=&uxct=",
+												"type" : "GENERIC",
+												"use" : "BASE",
+												"showBrowser" : false,
+												"trackingUrls" : []
+											},
+											{
+												"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&r=48804&adid=27744948&reid=8966966&arid=0&auid=&cn=defaultImpression&et=i&_cc=27744948,8966966,,,1539449827,1&tpos=0&iw=&uxnw=&uxss=&uxct=&init=1&cr=",
+												"name" : "defaultImpression",
+												"type" : "IMPRESSION",
+												"use" : "OVERRIDE",
+												"showBrowser" : false,
+												"trackingUrls" : []
+											},
+											{
+												"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&r=48804&adid=27744948&reid=8966966&arid=0&auid=&cn=defaultClick&et=c&_cc=&tpos=0&cr=",
+												"name" : "defaultClick",
+												"type" : "CLICK",
+												"use" : "OVERRIDE",
+												"showBrowser" : false,
+												"trackingUrls" : []
+											}
+										],
+										"adId" : "27744948",
+										"creativeId" : "3234497",
+										"replicaId" : "0",
+										"networkId" : "48804",
+										"creativeRenditionId" : "8966966",
+										"companionAds" : [],
+										"fallbackAds" : []
+									}
+								]
+							}
+						],
+						"timePosition" : "0",
+						"timePositionClass" : "preroll",
+						"adUnit" : "Standard Pre",
+						"source" : "generated"
+					},
+					{
+						"eventCallbacks" : [
+							{
+								"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&cn=slotImpression&et=i&tpos=30&init=1&slid=1",
+								"name" : "slotImpression",
+								"type" : "IMPRESSION",
+								"use" : "OVERRIDE",
+								"showBrowser" : false,
+								"trackingUrls" : []
+							},
+							{
+								"url" : "https:\/\/bea4.cnn.com\/ad\/l\/1?s=f067&n=48804%3B48804%3B379619%3B381963&t=1539449827543974029&f=&cn=slotEnd&et=i&tpos=30&init=1&slid=1",
+								"name" : "slotEnd",
+								"type" : "IMPRESSION",
+								"use" : "OVERRIDE",
+								"showBrowser" : false,
+								"trackingUrls" : []
+							}
+						],
+						"customId" : "1.0.0.807761558",
+						"selectedAds" : [],
+						"timePosition" : "30",
+						"timePositionClass" : "overlay",
+						"adUnit" : "Standard Overlay",
+						"source" : "generated"
+					}
+				]
+			},
+			"adSlots" : []
+		},
+		"adSlots" : []
+	}
+});
