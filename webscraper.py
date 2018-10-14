@@ -2,12 +2,9 @@ from collections import OrderedDict
 from bs4 import BeautifulSoup
 from urllib import request
 import threading
-# import requests
 import pprint
 import shutil
-# import socket
 import time
-import sys
 import os
 import re
 
@@ -71,10 +68,6 @@ def init_crawler():
     hostname = get_hostname(url, '')
     directory = OrderedDict()
     directory[hostname] = [url]
-
-    # pprint.pprint(directory)
-    # pprint.pprint(links)
-
     expired = OrderedDict()
     global TOTAL_PAGES
     TOTAL_PAGES = pgs
@@ -109,12 +102,8 @@ def get_crawl_restrictions(hostname):
             j += 1
 
     delay_def = 3
-    # delays = [float(x.split(':')[1]) for x in lines if x.startswith('crawl-delay')]
     delays.append(delay_def)
     delay = max(delays)
-
-    # print('max delay', threading.current_thread(), delay)
-
     return disallowed, delay
 
 
@@ -123,26 +112,17 @@ def init_loop():
 
 
 def end_loop(delay, seci):
-    # print('    01', threading.current_thread())
-    dur_sec = time.time() - seci
-    # print('    02', threading.current_thread())
-    pause_time = max(0, delay-dur_sec)
-    # print('    03', threading.current_thread())
+    # dur_sec = time.time() - seci
+    # pause_time = max(0, delay-dur_sec)
 
-    # if not limit_not_reached():
-    #     sys.exit(0)
+    while time.time() < delay + seci and limit_not_reached():
+        time.sleep(1)
 
-    # if not limit_not_reached():
-    #     print('limit reached', threading.current_thread())
-    # print(threading.current_thread(), pause_time)
-
-    time.sleep(pause_time)
-    # print('    04', threading.current_thread())
-    return pause_time
+    # return pause_time
 
 
 def repository_fpath(url):
-    fpath = url.replace('/', REPOSITORY_TOKEN)
+    fpath = re.sub('\W+', '', url)
     fpath = fpath[:100]
     return fpath
 
@@ -158,22 +138,11 @@ def gather_links(html):
 
 
 def get_hostname(baselink, resource):
-
-    # if 'javascript:' in resource:
-    #     return None
-    # elif '?lang=' in resource:
-    #     return None
-    # elif 'mailto:' in resource:
-    #     return None
-    # elif '.php' in resource:
-    #     return None
-
     remove = ['javascript:', '?lang=', 'mailto:', '.php', '.asp', '{', '}']
     if any(r in resource for r in remove):
         return None
 
     def tokenize(link):
-        # lnk = [x for x in link.strip().split('/') if '.' in x]
         lnk = [x for x in re.split('/|#|\|| ', link.strip()) if '.' in x]
         if lnk:
             return 'https://' + lnk[0]
@@ -187,7 +156,6 @@ def get_hostname(baselink, resource):
 
 
 def shape_link(baselink, resource):
-
     hostname = get_hostname(baselink, baselink)
     url = re.sub('www.|http:|https:|/$|#$', '', resource.strip())
     if url.startswith('//'):
@@ -198,7 +166,6 @@ def shape_link(baselink, resource):
         url = hostname
     elif url[0].isalnum():
         url = hostname+'/'+url
-    # print('    link:', baselink, resource, url)
     return url
 
 
@@ -241,12 +208,8 @@ def remove_restricted(links, rstr, disallowed):
 
 
 def push_links(baselink, directory, expired, links, restrict):
-    # pprint.pprint(directory)
-    # pprint.pprint(links)
     for link in links:
         hostname = get_hostname(baselink, link)
-        # print(hostname)
-        # print('hostname:', baselink, link, hostname)
         if hostname is not None:
             if hostname not in directory.keys():
                 directory[hostname] = [link]
@@ -263,7 +226,6 @@ def next_url(links):
 
 
 def limit_not_reached():
-    # global TOTAL_PAGES
     return len(os.listdir('repository')) < TOTAL_PAGES
 
 
@@ -286,15 +248,7 @@ def run_hostname(hostname, directory, expired, restrict):
     url = next_url(directory[hostname])
     disallowed, delay = get_crawl_restrictions(hostname)
     while limit_not_reached() and has_url(url):
-
-        # print(url)
-
         links = scrape_page(url)
-
-        # pprint.pprint(directory)
-        # print(url)
-        # pprint.pprint(links)
-
         sec_i = init_loop()
         if links:
             append_page_info(url, links)
@@ -304,12 +258,8 @@ def run_hostname(hostname, directory, expired, restrict):
         url = next_url(directory[hostname])
         end_loop(delay, sec_i)
 
-    # if not limit_not_reached():
-    #     print('end of sub thread', threading.current_thread())
-
 
 def run_main():
-
     hostname, directory, expired, rstr = init_crawler()
     iter = 0
     while limit_not_reached() or threading.active_count() > 1:
@@ -322,10 +272,6 @@ def run_main():
                 iter = (iter + 1) % len(hostnames)
             else:
                 break
-        # if not limit_not_reached():
-        #     print('end of main', ''.join(get_sub_threads()))
-        #     print(threading.active_count(), end=' ')
-        #     threading.enumerate()
         time.sleep(1)
 
     print('\n\n')
