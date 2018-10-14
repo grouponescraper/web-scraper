@@ -175,25 +175,30 @@ def shape_links(url, links):
     return links
 
 
+def get_imgs(tree):
+    return len([i for i in tree.find_all('img')])
+
+
 def scrape_page(res, url):
     # res = connect(url, 1, 0)
     if res:
         # status_code = res.getcode()
         tree = BeautifulSoup(res, 'lxml')
         links = gather_links(tree)
+        imgs = get_imgs(tree)
         write_html_file(url, tree)
-        return shape_links(url, links)
-    return []
+        return shape_links(url, links), imgs
+    return [], 0
 
 
-def append_page_info(res, url, links):
+def append_page_info(res, url, links, imgs):
     with open('report.html', 'at') as fobj:
         fpath = repository_fpath(url)
         numlinks = str(len(links))
         line = '<p>' + \
             '<a href='+url+'>'+url+'</a> ' + \
             '<a href='+'repository/'+fpath+'.html>'+fpath+'</a> ' + \
-            str(res.getcode())+' '+numlinks + '</p>'
+            str(res.getcode())+' '+numlinks + ' ' + str(imgs) + '</p>'
         fobj.write(line)
 
 
@@ -213,7 +218,7 @@ def push_links(baselink, directory, expired, links, restrict):
         hostname = get_hostname(baselink, link)
         if hostname is not None:
             if hostname not in directory.keys():
-                directory[hostname] = [link]
+                directory[hostname] = []
             if hostname not in expired.keys():
                 expired[hostname] = []
             if link not in directory[hostname] and link not in expired[hostname]:
@@ -251,9 +256,9 @@ def run_hostname(hostname, directory, expired, restrict):
     while limit_not_reached() and has_url(url):
         res = connect(url, 1, 0)
         sec_i = init_loop()
-        links = scrape_page(res, url)
+        links, imgs = scrape_page(res, url)
         if res:
-            append_page_info(res, url, links)
+            append_page_info(res, url, links, imgs)
             links = remove_restricted(links, restrict, disallowed)
             push_links(hostname, directory, expired, links, restrict)
         expired[hostname].append(url)
@@ -286,5 +291,4 @@ def run_main():
 
 if __name__ == '__main__':
     run_main()
-
 
