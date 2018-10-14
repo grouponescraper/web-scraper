@@ -5,6 +5,7 @@ from lxml.html import HtmlElement, etree
 import matplotlib.pyplot as plt
 from urllib import request
 import numpy as np
+import os
 import re
 
 
@@ -160,41 +161,6 @@ def doc_slope_display(slope):
     plt.show()
 
 
-'''
-
-def init_ad_list(fpath='files/adservers.txt'):
-    # TODO initialize this better; don't remove regex chars
-    ad_servers = []
-    with open(fpath, 'rt') as fobj:
-        lines = [x.strip() for x in fobj if not x.startswith('!')][1:]
-        for ads in lines:
-            # ads = [x for x in re.split(' |\n|\||,', ads) if x]
-            # ads = [x for x in re.split(' |\n|\||,|\$|\^|#|\*', ads) if x]
-            ad_servers.extend([x for x in re.split(' |\n|\||,|#', ads) if x])
-        # ad_servers = list(set(ad_servers))
-        # ad_servers = [x.strip(' |#|!|@|*|^|\||\n') for x in ad_servers]
-        # ad_servers = [x for x in ad_servers if x]
-        # ad_servers = [x.strip() for x in re.split(',|\n', fobj.read()) if x.strip()][16:]
-        # print(ad_servers[:100])
-    # ad_servers = ''.join(ad_servers)
-    return ad_servers
-
-
-def remove_ad_servers(doc, ad_servers):
-    # TODO improve this with using regex
-    remove_nodes = []
-    for node in doc.iter():
-        attribs = [v for k, v in node.attrib.items() if k == 'rel' or k == 'src' or k == 'href']
-        for attrib in attribs:
-            for ad in ad_servers:
-                if ad in attrib:
-                    remove_nodes.append(node)
-    for node in remove_nodes:
-        node.getparent().remove(node)
-    return doc
-'''
-
-
 def get_server_regex():
     with open('files/adblock_whitelist.txt', 'rt') as fobj:
         whitelist_txt = fobj.read()
@@ -246,6 +212,10 @@ def format_doc(doc):
             else:
                 webpage += text
     return webpage
+
+
+def read_files(fpath):
+    pass
 
 
 def run_main():

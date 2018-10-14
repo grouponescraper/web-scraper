@@ -38,7 +38,7 @@ def connect(url, max_errors=3, retry_time=10):
                 print('            ', 'connected to', res.geturl())
                 return res
         except Exception as err:
-            print('            ', err, url)
+            # print('            ', err, url)
             error_counter += 1
             time.sleep(retry_time)
 
@@ -175,24 +175,25 @@ def shape_links(url, links):
     return links
 
 
-def scrape_page(url):
-    res = connect(url, 1, 0)
+def scrape_page(res, url):
+    # res = connect(url, 1, 0)
     if res:
         # status_code = res.getcode()
         tree = BeautifulSoup(res, 'lxml')
         links = gather_links(tree)
         write_html_file(url, tree)
         return shape_links(url, links)
+    return []
 
 
-def append_page_info(url, links):
+def append_page_info(res, url, links):
     with open('report.html', 'at') as fobj:
         fpath = repository_fpath(url)
         numlinks = str(len(links))
         line = '<p>' + \
             '<a href='+url+'>'+url+'</a> ' + \
             '<a href='+'repository/'+fpath+'.html>'+fpath+'</a> ' + \
-            numlinks + '</p>'
+            str(res.getcode())+' '+numlinks + '</p>'
         fobj.write(line)
 
 
@@ -248,10 +249,11 @@ def run_hostname(hostname, directory, expired, restrict):
     url = next_url(directory[hostname])
     disallowed, delay = get_crawl_restrictions(hostname)
     while limit_not_reached() and has_url(url):
-        links = scrape_page(url)
+        res = connect(url, 1, 0)
         sec_i = init_loop()
-        if links:
-            append_page_info(url, links)
+        links = scrape_page(res, url)
+        if res:
+            append_page_info(res, url, links)
             links = remove_restricted(links, restrict, disallowed)
             push_links(hostname, directory, expired, links, restrict)
         expired[hostname].append(url)
@@ -274,12 +276,12 @@ def run_main():
                 break
         time.sleep(1)
 
-    print('\n\n')
-    pprint.pprint(directory)
-    print('\n\n')
-    pprint.pprint(expired)
-    print('\n')
-    print('goodbye!')
+    # print('\n\n')
+    # pprint.pprint(directory)
+    # print('\n\n')
+    # pprint.pprint(expired)
+    # print('\n')
+    # print('goodbye!')
 
 
 if __name__ == '__main__':
