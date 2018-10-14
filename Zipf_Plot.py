@@ -22,7 +22,7 @@ doc_address = 'C:/Users/yingy/Desktop/doc1.txt'
 
 
 frequency = {}
-document_text = open(doc_address, 'r')
+document_text = open(doc_address, encoding ='utf-8', mode ='r')
 text_string= document_text.read().lower()
 match_pattern = re.findall(r'\b[a-z]{3,15}\b', str(text_string))
 
@@ -50,6 +50,9 @@ for rank, word in enumerate(freq_sorted_dict):
     ranks.append(rank+1)
     freqs.append(freq_sorted_dict[word])
     words.append(word)
+
+for i in range(0:100):
+    print(freq_sorted[i])
 
 
 # In[469]:
