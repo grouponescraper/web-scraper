@@ -68,3 +68,19 @@ for n in list(np.logspace(-0.5, np.log10(len(freqs)-1), 20).astype(int)):
                 verticalalignment='bottom', horizontalalignment ='left')
 plt.show()
 
+
+total =0;
+for n in freqs:
+    total += freqs[n]
+print(total)
+probs = []
+for i in range(0, len(freqs)):
+    probs.append(freqs[i]/total)
+    
+plt.title('Zipf Plot', fontsize =14)
+plt.xlabel('Rank', fontsize =14)
+plt.ylabel('Probability', fontsize =14)
+plt.grid(True)
+plt.plot(ranks, probs, linewidth=2,color='r')
+plt.show()
+
