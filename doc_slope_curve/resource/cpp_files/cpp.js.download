@@ -1,0 +1,257 @@
+$(document).ready(function () {
+//set up safety alert
+if($("#alert").length != 0) {
+ 
+ $.ajax({
+                type: "GET",
+                url: "https://www.cpp.edu/common/2018/safety-alert/safety-alert.php",
+                dataType: "xml",
+                success: function(xml) 
+                {
+                  if($(xml).find('item').length != 0) {
+                    $(xml).find('item').each(function() {
+                      title = $(this).find("title").text(); 
+                      desc = $(this).find("description").text();
+                      link = $(this).find("link").text();
+                    });
+                     $('#alert').html('<section id="safety-alert" class="container-fluid"><div class="row alert-row"><div class="col-12 col-sm-2 alert-icon"><img src="https://www.cpp.edu/common/resources/img/safety-alert-icon.png" /><h2>Safety Alert</h2></div><div class="col alert-body"><p class="alert-text-title">' + title + '<p><p class="alert-text">' + desc + '<p><p class="alert-text"><a href="' + link + '">More Information</a><p></div></div></section>');
+                     }
+              
+                },
+                error: function() 
+                {
+                    	 console.log('error No Item');
+    			}
+});
+   
+}
+//check for body height to set up class to correct sticky functionality.
+if ($(document).height() <= $(window).height() ) { 
+    $( "body" ).addClass( "full-height" );
+    $( "html" ).addClass( "full-height" );
+}
+  
+//get navagation selected page if it is in a dropdown on the left menu
+
+$('.left-nav > .active' ).parent('.collapse').css( 'background', 'yellow' );
+$('.left-nav > .active').toggleClass("active");
+
+//left menu set active
+var path = window.location.pathname;
+    
+$(".nav-link").each(function() {   
+    if ($(this).attr('href') == path) {
+        $(this).addClass("active");
+    } 
+});   
+$('.nav-link').click(function() {
+	$( '.nav-link' ).removeClass( 'expanded-nav' );
+	$( this ).addClass( 'expanded-nav' );
+
+});
+
+$('.left-nav').find('.active').each(function() {  
+    var id = $(this).attr('data-parent');
+    $(id).collapse({
+        toggle: true
+    });
+});
+
+//eof left menu active 
+//set up popular searches
+function setAutoComplete(data) {
+   $('#autocomplete-results').html(data);
+   var autocompletedefault = data
+}
+
+$.get('https://www.cpp.edu/common/2018/popular-searches/popular-searches.shtml', setAutoComplete);
+
+
+//toggle search help
+var   win = $(window);
+var autocompletedefaulth2 = $('#searchhelp h2').html();
+
+
+$('#shcontainer').dropdown();
+
+$('#searchbar').focus(function(){
+    $('#shcontainer').dropdown('toggle');
+    $('#shcontainer').addClass('show');
+    $('#searchelp').addClass('show');
+    //reset search help box to default on show
+    $('#searchhelp h2').html(autocompletedefaulth2);
+    $('#autocomplete-results').load('https://www-test.cpp.edu/common/2018/popular-searches/popular-searches.shtml', function(){
+   
+});
+});
+
+$('#searchbar').on("input", function(){
+    q =  $('#searchbar').val();
+    autocomplete(q)
+});
+
+//set up scroll position nav change
+//body scroll position    
+//function smallView() {
+ // if (win.scrollTop() >= 40 && win.width() >= 600) {
+ //       $('#cpp-logobar').addClass('shrink-nav-cpp-logobar');
+ //       $('#searchcpp').addClass('shrink-nav-form');
+//        $('#college-nav').addClass('shrink-nav-college');
+ // }
+ // else {
+ //   $('#cpp-logobar').removeClass('shrink-nav-cpp-logobar');
+ //   $('#searchcpp').removeClass('shrink-nav-form');
+  //  $('#college-nav').removeClass('shrink-nav-college');
+ // }
+//}
+        
+//if ( $( "#college-nav" ).length ) {
+
+//win.scroll(smallView);
+        // run  on page load just in case a user has made a
+        // soft refresh, so as to not load the page & have the
+        // focus point be reset to the top of the document
+//smallView();
+//}
+//set up fancy box
+
+function check_if_in_view() {
+  var window_height = $window.height();
+  var window_top_position = $window.scrollTop();
+ // Muitlply window_height by 33% to have item show up at top third of screen
+  var window_bottom_position = (window_top_position +(window_height * .33) );
+  //console.log(window_top_position + " + " +  window_bottom_position  )
+
+  $.each($animation_elements, function() {
+    var $element = $(this);
+    var element_height = $element.outerHeight();
+    var element_top_position = $element.offset().top;
+    var element_bottom_position = (element_top_position + element_height);
+
+    //check to see if this current container is within viewport. 
+    if ((element_bottom_position >= window_top_position) &&
+        (element_top_position <= window_bottom_position)) {
+      $element.addClass('in-view');
+    } else {
+        if(window_top_position === window_height) {
+            $element.addClass('in-view');
+        } else {
+        
+      $element.removeClass('in-view');
+    }
+  }
+  });
+}
+
+if ( $( ".large-blur-content" ).length ) {
+//Cache reference to window and animation items
+    var $animation_elements = $('.large-blur-content');
+    var $window = $(window);
+    $window.on('scroll resize', check_if_in_view);
+    $window.trigger('scroll');
+
+}
+
+//for bootstrap template slideshow options
+//set up pause button
+$('#cpp-carousel-pause').click(function(){
+    $('#CPPCarousel').carousel('pause');
+    $('video').trigger('pause');
+   
+   
+});
+$('#cpp-carousel-play').click(function(){
+    $('#CPPCarousel').carousel('cycle');
+    $('video').trigger('play');
+    $('#CPPCarousel').carousel('next')
+   
+});
+var slideheight = $('.standard-slide img').first().height();
+//console.log(slideheight);
+
+if(slideheight == 100) {
+    slideheight = $('.video-slide-container video').height();
+    //console.log("not standard first slide" + $('.carousel-inner').height());
+}
+
+var setslideheight = slideheight + 150;
+//console.log(setslideheight);
+document.querySelector('style').textContent += "@media screen and (max-width:768px) { .center-text-slide, .img-only-slide { height: " + setslideheight + "px; } }";
+//for eof bootstrap template slideshow options
+
+//set up header expand menu
+        $('#full-expanded-menu').on('show.bs.collapse', function () {
+             $('.hamburger-icon').hide();
+             $('.search-icon').hide();
+             $('.cross-icon').show();
+             
+  
+        });
+        $('#full-expanded-menu').on('hidden.bs.collapse', function () {
+             
+             $('.hamburger-icon').show();
+             $('.search-icon').show();
+             $('.cross-icon').hide();
+            
+        });
+        $('.search-icon').click(function (){
+             
+             $('#full-expanded-menu').collapse('show');
+            $("#searchbar").focus();
+            
+        
+        });
+//eof set up header expand menu
+});//eof on ready
+    
+//set up autocomplete for trigger-transparent-logobar
+function autocomplete(q) {
+var url = "https://gsa.cpp.edu/suggest?token=" + q + "&max_matches=10&use_similar=0&site=default_collection&client=cpp-fe"
+$.ajax({
+            url: url,
+            dataType: 'JSONP',
+            jsonpCallback: 'callbackFnc',
+            type: 'GET',
+            async: false,
+            crossDomain: true,
+            success: function () { },
+            failure: function () { },
+            complete: function (data) {
+                if (data.readyState == '4' && data.status == '200') {
+                    
+                    var dataresult = data.responseJSON;
+                   
+                    if(dataresult.length > 0) {
+                    $('#searchhelp h2').html('Suggested Searches');
+                    $('#autocomplete-results').html('');
+                    
+                        $.each(dataresult, function( key, value ) {
+                           //Accessiblity notes for use on onclick inline
+                           //Several event handlers are device independent, including onFocus, onBlur, onSelect, onChange, and onClick (when onClick is used with link or form elements)
+                           //https://webaim.org/techniques/javascript/eventhandlers
+                            listitem = "<li><a href='#"+value+ "' onclick='useSuggestion(\""+value+ "\", event)'>" + value + "</li>";
+                            $('#autocomplete-results').append(listitem);
+                            
+                        });
+                    }
+
+                }
+                else {
+                    console.log('FAIL');
+                }
+            }
+        });
+}
+ function useSuggestion(q, event){
+        event.preventDefault();
+        $('#searchbar').val(q);
+        $('#searchbutton').trigger("click");
+        //focus search button
+       // $('#searchbutton').focus();
+       return false;
+}
+ function usePopularSearch(q, event){
+        event.preventDefault();
+        window.location = q;
+        return false;
+}

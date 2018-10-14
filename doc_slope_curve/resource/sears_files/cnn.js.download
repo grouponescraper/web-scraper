@@ -1,0 +1,67 @@
+(function (w, d) {
+  'use strict';
+  var s1 = d.getElementsByTagName('script')[0],
+      s = d.createElement('script'),
+      subcriptionURL = 'https://www.cnn.com/email/subscription',
+      attr,
+      canFireFn,
+      pageFn,
+      onReady;
+  s.src = '//tru.am/scripts/ta-pagesocial-sdk.js';
+  attr = function (domQ, name) {
+    var l = d.querySelector(domQ);
+    if (l) {
+      // Use getAttribute() to avoid encoded strings.
+      return l.getAttribute(name);
+    }
+    return undefined;
+  };
+  canFireFn = function(canonical) {
+    return canonical === subcriptionURL;
+  };
+
+  pageFn = function () {
+    var l = d.location,
+        host = l.hostname.toLowerCase(),
+        path = l.pathname.toLowerCase(),
+        ogtype;
+    if (path === '/email/subscription') {
+      return {
+        'canonical': subcriptionURL,
+        'og:type': 'article',
+        'og:url': subcriptionURL
+      };
+    }
+    ogtype = attr('meta[property="og:type"]', 'content');
+    if (w.TRUE_ANTHEM.isValidPageType(ogtype) || types[ogtype]) {
+      return {
+        'canonical': attr('link[rel="canonical"]', 'href'),
+        'og:type': ogtype,
+        'og:url': attr('meta[property="og:url"]', 'content')
+      };
+    }
+    return {};
+  };
+  onReady = function () {
+    var l = document.location,
+        h = l.hostname.toLowerCase(),
+        cid;
+    if (h.indexOf('cnn.com') > -1) {
+        cid = '1368';
+    } 
+    if (cid) {
+      w.TRUE_ANTHEM.configure(cid, {canFire: canFireFn, page: pageFn});
+    }
+  };
+  if (s.addEventListener) {
+    s.addEventListener('load', onReady, false);
+  } else {
+    s.onreadystatechange = function () {
+      if (s.readyState in {loaded: 1, complete: 1}) {
+        s.onreadystatechange = null;
+        onReady();
+      }
+    };
+  }
+  s1.parentNode.insertBefore(s, s1);
+}(window, document));

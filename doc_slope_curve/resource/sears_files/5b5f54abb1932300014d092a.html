@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<!-- saved from url=(0056)https://widgets.tree.com/widget/5b5f54abb1932300014d092a -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Widget - lt_external_widgets</title>
+<style>
+        body {overflow:hidden;}
+
+@font-face {
+  font-family: 'CNNSans';
+  font-style: normal;
+  font-weight: 300;
+  src: url(../fonts/CNN/CNNSansW04-Light.eot);
+  src: url(../fonts/CNN/CNNSansW04-Light.woff) format("woff"); }
+
+@font-face {
+  font-family: 'CNNSans';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../fonts/CNN/CNNSansW04-Regular.eot);
+  src: url(../fonts/CNN/CNNSansW04-Regular.woff) format("woff"); }
+
+@font-face {
+  font-family: 'CNNSans';
+  font-style: normal;
+  font-weight: 600;
+  src: url(../fonts/CNN/CNNSansW04-Medium.eot);
+  src: url(../fonts/CNN/CNNSansW04-Medium.woff) format("woff"); }
+
+@font-face {
+  font-family: 'CNNSans';
+  font-style: normal;
+  font-weight: 700;
+  src: url(../fonts/CNN/CNNSansW04-Bold.eot);
+  src: url(../fonts/CNN/CNNSansW04-Bold.woff) format("woff"); }
+
+@font-face {
+  font-family: 'lt4';
+  src: url("../fonts/lt4.eot?p9z1oj");
+  src: url("../fonts/lt4.eot?p9z1oj#iefix") format("embedded-opentype"), url("../fonts/lt4.ttf?p9z1oj") format("truetype"), url("../fonts/lt4.woff?p9z1oj") format("woff"), url("../fonts/lt4.svg?p9z1oj#lt4") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+[class^="lt4-"], [class*=" lt4-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'lt4' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+/*WIDGET FRAMEWORK STYLES */
+/** CSS FOR TABS **/
+
+* {
+    box-sizing: content-box;
+}
+
+input {
+  display: none; }
+
+label {
+  display: inline-block; }
+
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3 {
+  display: block; }
+
+section {
+  display: none; }
+
+.header-after-tabs,
+.button-left-side {
+  display: none; }
+
+/**NON-TABS TABLE ALIGNMENT **/
+.table.widget-table .table-cell:first-child, .table.widget-table .table-cell:nth-child(2) {
+  text-align: left; }
+
+.table.widget-table a.table-head:nth-child(2) {
+  text-align: left; }
+
+.table.widget-table .table-cell:last-child,
+.table.widget-table a.table-head:last-child {
+  text-align: right; }
+
+.table.tab1.widget-table .table-cell:first-child {
+  text-align: left; }
+
+.table.tab1.widget-table .table-cell:nth-child(2) {
+  text-align: center; }
+
+.table.tab1.widget-table a.table-head:nth-child(2) {
+  text-align: center; }
+
+.table.tab1.widget-table .table-cell:last-child,
+.table.tab1.widget-table a.table-head:last-child {
+  text-align: right; }
+
+.table.tab2.widget-table .table-cell:first-child, .table.tab2.widget-table .table-cell:nth-child(2) {
+  text-align: center; }
+
+.table.tab2.widget-table a.table-head:nth-child(2) {
+  text-align: center; }
+
+.table.tab2.widget-table .table-cell:last-child,
+.table.tab2.widget-table a.table-head:last-child {
+  text-align: right; }
+
+.table.tab3.widget-table .table-cell:first-child, .table.tab3.widget-table .table-cell:nth-child(2) {
+  text-align: center; }
+
+.table.tab3.widget-table a.table-head:nth-child(2) {
+  text-align: center; }
+
+.table.tab3.widget-table .table-cell:last-child,
+.table.tab3.widget-table a.table-head:last-child {
+  text-align: right; }
+
+/* custom build for table */
+.table {
+  display: table; }
+
+.table-row {
+  display: table-row; }
+
+.table.widget-table {
+  width: 100%;
+  max-width: 100%; }
+
+.table-cell {
+  display: table-cell; }
+
+.widget-btn {
+  padding: .8em 1em;
+  border: none;
+  border-radius: 2px; }
+  .widget-btn:focus, .widget-btn:active:focus, .widget-btn.active:focus, .widget-btn.focus, .widget-btn:active.focus, .widget-btn.active.focus {
+    outline: thin dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px; }
+
+/*CUSTOM GRID */
+.widget-grid-container {
+  padding-left: 5px;
+  padding-right: 5px; }
+
+.widget-row:before, .widget-row:after {
+  content: "";
+  display: table;
+  clear: both; }
+
+[class*='widget-col-'],
+[class*='custom-column'] {
+  float: left;
+  padding: 12px 0px; }
+
+.widget-col-3 {
+  width: 25%; }
+
+.widget-col-4 {
+  width: 33.3333333333%; }
+
+.widget-col-6 {
+  width: 50%; }
+
+.widget-col-12 {
+  position: relative;
+  width: 100%; }
+
+.custom-column {
+  width: 100%; }
+
+/*WIDGET THEME STYLES */
+body {
+  font-family: 'CNNSans', 'Helvetica Neue', Helvetica, Arial, 'Utkal', sans-serif;
+  font-size: 100%;
+  color: #333;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  margin: 0px;
+  padding-left: 0;
+  padding-right: 0; }
+
+section {
+  padding: 20px 0 0;
+  font-family: 'CNNSans', 'Helvetica Neue', Helvetica, Arial, 'Utkal', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased; }
+
+.text-center {
+  text-align: center; }
+
+.text-left {
+  text-align: left; }
+
+.widget-title-border-bottom {
+  border-bottom: 1px solid #c4c4c4; }
+
+a {
+  color: #00aeef;
+  text-decoration: none; }
+  a:focus {
+    text-decoration: none; }
+
+/* HEADER AREA */
+.widget-textarea {
+  display: none; }
+
+.widget-textarea.before-tabs {
+  display: none; }
+
+.widget-textarea.after-tabs {
+  display: none; }
+
+/* GRID */
+.widget-grid-container h2 {
+  font-weight: 300;
+  margin-bottom: 0px; }
+
+/** CSS FOR TABS **/
+label {
+  margin: 0 0 -1px;
+  padding: 15px;
+  line-height: 1.42;
+  font-weight: 700;
+  color: #2cace3;
+  text-align: center;
+  font-size: 14px; }
+
+label:before {
+  font-weight: normal;
+  margin-right: 10px; }
+
+label:hover {
+  color: #333;
+  cursor: pointer; }
+
+input:checked + label {
+  color: #333;
+  border-bottom: 5px solid #7dc244; }
+
+label:hover {
+  color: inherit; }
+
+/* table */
+.table-cell {
+  line-height: 1.42857143;
+  padding: 15px 0px;
+  font-size: 13px; }
+
+/*style for widget table */
+.table-head {
+  font-size: 14px;
+  float: none;
+  display: table-cell;
+  position: static;
+  color: #333;
+  font-weight: bold;
+  vertical-align: bottom; }
+
+.table.widget-table {
+  border-collapse: collapse; }
+
+.table > .table-row {
+  border-top: 1px solid #ddd; }
+  .table > .table-row.table-head {
+    border-style: none; }
+    .table > .table-row.table-head.border {
+      border-top: 1px solid #ddd; }
+
+a.table-row:hover {
+  background-color: #f5f5f5; }
+
+.table.tab1.widget-table .table-cell:nth-child(3) {
+  text-align: center; }
+
+.table.tab1.widget-table .table-cell:nth-child(3) {
+  text-align: center; }
+
+/**TAB 1 TABLE ALIGNMENT **/
+/**TAB 2 TABLE ALIGNMENT **/
+/**TAB 3 TABLE ALIGNMENT **/
+/*Basic style for button and image */
+.widget-btn {
+  font-size: 15px;
+  text-align: center;
+  color: #fff;
+  background-color: #ffa800;
+  text-shadow: 0 1px 1px #d28c00;
+  cursor: pointer; }
+  .widget-btn:active, .widget-btn.active {
+    background-image: none;
+    outline: 0;
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125); }
+  .widget-btn:hover, .widget-btn:active, .widget-btn:focus {
+    background-color: #ff9200; }
+  .widget-btn:active, .widget-btn:focus, .widget-btn:hover {
+    background-color: #ff9200;
+    background-repeat: no-repeat;
+    background-position: calc(100% - 20px) 50%; }
+
+p {
+  margin: 0px; }
+
+.content,
+.right-header {
+  padding-right: 10px; }
+
+.left-header {
+  padding-left: 10px; }
+
+.right-column {
+  padding-left: 10px; }
+
+.left-column {
+  padding-left: 10px; }
+
+.lt-logo {
+  content: url("../images/LT_logo.svg");
+  background-repeat: no-repeat;
+  width: 110px;
+  position: relative;
+  fill: #979797;
+}
+
+p.powered-by {
+  position: relative;
+  top: 0px;
+  font-size: 10px;
+  text-align: center;
+  color: #979797;
+}
+
+/* BUTTON SECTION */
+.button-section {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.widget-btn {
+  float: right; }
+
+@media screen and (max-width: 650px) {
+  label:before {
+    margin: 0;
+    font-size: 18px; } }
+
+.logo-wrapper {
+  width: 100%; }
+
+@media (max-width: 428px) {
+  label {
+    height: 35px; } }
+
+@media (max-width: 293px) {
+  label {
+    height: 45px; } }
+
+@media (max-width: 350px) {
+  .widget-btn {
+    width: 100%;
+    font-size: .9em; }
+  p.powered-by {
+    font-size: 10px; }
+  .lt-logo {
+    width: 90px; } }
+
+@media (min-width: 480px) {
+  .widget-btn {
+    width: 100%; } }
+
+@media (min-width: 600px) {
+  .widget-btn {
+    width: 75%; } }
+
+@media (min-width: 982px) {
+  .widget-btn {
+    width: 50%; } }
+
+/*WIDGET THEME STYLES */
+body {
+  font-family: 'CNNSans', 'Helvetica Neue', Helvetica, Arial, 'Utkal', sans-serif;
+  font-size: 100%;
+  color: #333;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  margin: 0px;
+  padding-left: 0;
+  padding-right: 0; }
+
+section {
+  padding: 20px 0 0;
+  font-family: 'CNNSans', 'Helvetica Neue', Helvetica, Arial, 'Utkal', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased; }
+
+.text-center {
+  text-align: center; }
+
+.text-left {
+  text-align: left; }
+
+.widget-title-border-bottom {
+  border-bottom: 1px solid #c4c4c4; }
+
+a {
+  color: #00aeef;
+  text-decoration: none; }
+  a:focus {
+    text-decoration: none; }
+
+/* HEADER AREA */
+.widget-textarea {
+  display: none; }
+
+.widget-textarea.before-tabs {
+  display: none; }
+
+.widget-textarea.after-tabs {
+  display: none; }
+
+/* GRID */
+.widget-grid-container h2 {
+  font-weight: 300; }
+
+/** CSS FOR TABS **/
+label {
+  margin: 0 0 -1px;
+  padding: 15px;
+  line-height: 1.42;
+  font-weight: 700;
+  color: #2cace3;
+  text-align: center;
+  font-size: 14px; }
+
+label:before {
+  font-weight: normal;
+  margin-right: 10px; }
+
+label:hover {
+  color: #333;
+  cursor: pointer; }
+
+input:checked + label {
+  color: #333;
+  border-bottom: 5px solid #7dc244; }
+
+label:hover {
+  color: inherit; }
+
+/* table */
+.table-cell {
+  line-height: 1.42857143;
+  font-size: 13px; }
+
+/*style for widget table */
+.table-head {
+  font-size: 14px;
+  float: none;
+  display: table-cell;
+  position: static;
+  color: #333;
+  font-weight: bold;
+  vertical-align: bottom; }
+
+.table.widget-table {
+  border-collapse: collapse; }
+
+.table > .table-row {
+  border-top: 1px solid #ddd; }
+  .table > .table-row.table-head {
+    border-style: none; }
+    .table > .table-row.table-head.border {
+      border-top: 1px solid #ddd; }
+
+a.table-row:hover {
+  background-color: #f5f5f5; }
+
+.table.tab1.widget-table .table-cell:nth-child(3) {
+  text-align: center; }
+
+.table.tab1.widget-table .table-cell:nth-child(3) {
+  text-align: center; }
+
+/**TAB 1 TABLE ALIGNMENT **/
+/**TAB 2 TABLE ALIGNMENT **/
+/**TAB 3 TABLE ALIGNMENT **/
+/*Basic style for button and image */
+.widget-btn {
+  font-size: 15px;
+  text-align: center;
+  color: #fff;
+  background-color: #ffa800;
+  text-shadow: 0 1px 1px #d28c00;
+  cursor: pointer; }
+  .widget-btn:active, .widget-btn.active {
+    background-image: none;
+    outline: 0;
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125); }
+  .widget-btn:hover, .widget-btn:active, .widget-btn:focus {
+    background-color: #ff9200; }
+  .widget-btn:active, .widget-btn:focus, .widget-btn:hover {
+    background-color: #ff9200;
+    background-repeat: no-repeat;
+    background-position: calc(100% - 20px) 50%; }
+
+p {
+  margin: 0px; }
+
+.content,
+.right-header {
+  padding-right: 10px; }
+
+.left-header {
+  padding-left: 10px; }
+
+.right-column {
+  padding-left: 10px; }
+
+.left-column {
+  padding-left: 10px; }
+
+.lt-logo {
+  content: url("../images/LT_logo.svg");
+  background-repeat: no-repeat;
+  width: 110px;
+  position: relative; }
+
+p.powered-by {
+  position: relative;
+  top: 0px;
+  font-size: 10px;
+  color: #979797;
+  text-align: center; }
+
+/* BUTTON SECTION */
+.button-section {
+  padding-top: 20px; }
+
+.widget-btn {
+  float: right; }
+
+@media screen and (max-width: 650px) {
+  label:before {
+    margin: 0;
+    font-size: 18px; } }
+
+.logo-wrapper {
+  width: 100%; }
+
+@media (max-width: 428px) {
+  label {
+    height: 35px; } }
+
+@media (max-width: 293px) {
+  label {
+    height: 45px; } }
+
+@media (max-width: 350px) {
+  .widget-btn {
+    width: 100%;
+    font-size: .9em; }
+  p.powered-by {
+    font-size: 10px; }
+  .lt-logo {
+    width: 90px; } }
+
+@media (min-width: 480px) {
+  .widget-btn {
+    width: 100%; } }
+
+@media (min-width: 600px) {
+  .widget-btn {
+    width: 75%; } }
+
+@media (min-width: 982px) {
+  .widget-btn {
+    width: 50%; } }
+
+.widget-grid-container {
+  background-color: #f8f8f8;
+  padding: 0;
+  min-height: 392px; }
+
+.widget-header {
+  display: none; }
+
+.table-cell.head .right-header {
+  text-align: center; }
+
+.tab3 .table-row.table-head {
+  display: none; }
+
+.tab2 .widget-row .widget-col-3 {
+  text-align: center; }
+
+.tab2 p.row-btn.content {
+  text-align: center; }
+
+input:checked + label {
+  color: #557f95;
+  border-bottom: 5px solid #557f95; }
+
+input + label {
+  color: #D3D2D3;
+  border-bottom: 5px solid #D3D2D3;
+  margin: 6px 3px 0 0; }
+
+label:last-child {
+  margin-right: 0; }
+
+label, label:hover {
+  color: #D3D2D3;
+  margin-right: 3px; }
+
+.widget-col-12.button-section {
+  padding-top: 0; }
+
+.custom-column.cta-btn {
+  width: 100%; }
+
+.widget-btn {
+  display: inline-block;
+  padding-left: 0;
+  padding-right: 0;
+  font-size: 16px;
+  font-weight: 700;
+  float: none;
+  width: 100%;
+  background-color: #4b748a;
+  background-size: 16px;
+  text-shadow: none !important;
+  }  
+    .widget-btn:hover {
+		background-color: #2f86d4; 
+	    color: #fff;
+		text-decoration: none;
+	}
+
+.widget-btn:active, .widget-btn:focus, .widget-btn:hover {
+  background-color: #3f6375;
+  background-repeat: no-repeat;
+  background-position: calc(100% - 10px) center; }
+
+a.table-row:hover {
+  background-color: #ffffff; }
+
+a {
+  color: #000;
+  font-weight: 400; }
+
+a:hover {
+  color: #557f95; }
+
+.table-row.table-head {
+  color: #999; }
+
+@media screen and (max-width: 400px) {
+  .table.tab1 .widget-col-4.col-adjustment:nth-child(3) {
+    width: 32.4777777% !important; }
+  .table.tab1 .widget-col-4.col-adjustment:nth-child(2) {
+    width: 32.4777777% !important; } }
+
+@media screen and (max-width: 400px) {
+  .table.tab3 .widget-col-4.col-adjustment:first-child, .tab1 .table-row.table-head:first-child .widget-col-4:first-child {
+    width: 40%; }
+  .table.tab3 .widget-col-4.col-adjustment:nth-child(2) {
+    width: 30%; }
+  .table.tab3 .widget-col-4.col-adjustment:nth-child(3) {
+    width: 25% !important; } }
+
+.table > .table-row {
+  border-top: 0; }
+
+.table > .table-row.table-head {
+  border-bottom: solid 1px #ddd;
+  border-top: solid 1px #ddd; }
+
+.table.tab1.widget-table .table-cell {
+  height: 10px;
+  padding: 10px 0;
+  line-height: 10px; }
+
+.table.tab2.widget-table .table-cell {
+  height: 15px;
+  padding: 10px 0;
+  line-height: 15px; }
+
+.table.tab3.widget-table .table-cell {
+  height: 20px;
+  padding: 10px 0;
+  line-height: 20px; }
+
+.table.tab3.widget-table .table-cell:first-child, .table.tab3.widget-table .table-cell:nth-child(2) {
+  text-align: left; }
+
+.tab3 .table > .table-row .table-cell {
+  text-align: left; }
+
+.tab3 .row-btn.content {
+  color: #ffffff;
+  background-color: #557f95;
+  width: 80%;
+  padding: .5em .5em;
+  margin-top: -.5em;
+  text-align: center;
+  background-size: 10%;
+  border-radius: 3px; }
+  .tab3 .row-btn.content:hover {
+    background-color: #3f6375;}
+
+label.widget-col-4 {
+  width: 32.855% !important; }
+
+@media all and (min-width: 351px) and (max-width: 647px) {
+  label.widget-col-4 {
+    width: 32.4777777% !important; } }
+
+@media all and (min-width: 342px) and (max-width: 350px) {
+  label.widget-col-4 {
+    width: 32.45555% !important; } }
+
+@media (max-width: 428px) {
+  label {
+    height: 18px; } }
+
+@media all and (max-width: 341px) {
+  label {
+    font-size: 12px;
+    height: 12px; }
+  .widget-btn {
+    font-size: 12px; }
+  .table-cell {
+    font-size: 11px; }
+  .tab3 .row-btn.content {
+    width: 75%;
+    text-align: center; }
+  .tab3 .row-btn.content {
+    background-position: calc(100% - 5px) center;
+    background-size: 12%; }
+  label.widget-col-4 {
+    width: 32.32222% !important; } }
+
+@media screen and (max-width: 400px) {
+  .table.tab1 .widget-col-4.col-adjustment:first-child, .tab1 .table-row.table-head:first-child .widget-col-4:first-child {
+    width: 40%; }
+  .table.tab1 .widget-col-4.col-adjustment:nth-child(2) {
+    width: 15%; }
+  .table.tab1 .widget-col-4.col-adjustment:nth-child(3) {
+    width: 25% !important; } }
+
+@media screen and (max-width: 350px) {
+  .table.tab3 .widget-col-4 p {
+    line-height: 1.2em;
+    font-size: 12px;
+    margin: 0 auto;
+    display: inline-block; }
+  .table.tab1 .widget-col-4.col-adjustment:nth-child(3) {
+    width: 29.4777777% !important; }
+  .table.tab1 .widget-col-4.col-adjustment:nth-child(2) {
+    width: 30.4777777% !important; }
+  label.widget-col-4 {
+    width: 28%; } }
+
+#content3 .widget-header.header-after-tabs {
+  display: block;
+  margin: 0;
+  padding: 0 10px 0 0;
+  border-bottom: none; }
+
+.widget-grid-container h2 {
+  font-weight: 700;
+  font-size: 20px;
+  margin-top: 20px;
+  padding-left: 10px; }
+
+#content3 .widget-btn {
+  display: none; }
+
+  .logo-wrapper {
+      margin-top: 6px;
+      display:flex;
+      justify-content: space-between;
+      align-items: center;
+  }
+  .lt-logo {
+      height: 30px;
+  }
+  label.widget-col-4 {
+      padding: 6px 0;
+  }
+  .widget-col-12 {
+      padding: 0;
+  }
+  .custom-column {
+      padding: 0;
+  }
+    </style>
+<script type="text/javascript" async="" src="./analytics.js.download"></script><script async="" src="./gtm.js.download"></script><script>
+            dataLayer = [{
+                widgetName: "cnnMoneyRateTable",
+                widgetId: "5b5f54abb1932300014d092b",
+                variationName: "cnnMoneyRateTable",
+                variationId: "5b5f54abb1932300014d092a",
+                widgetTemplate: "cnn-three-tabs",
+                widgetConfigurationObject: {
+'card_type_1': 'Balance Transfer',
+'card_type_2': 'Travel',
+'card_type_3': 'Airline Miles',
+'card_type_4': 'Cash Back',
+'card_type_5': 'Rewards',
+'card_type_value_1': '0% intro 21 mos',
+'card_type_value_2': '2x miles per $',
+'card_type_value_3': '40k bonus miles',
+'card_type_value_4': '6% cash back',
+'card_type_value_5': '20k Points',
+'card_cta_1': 'Details',
+'card_cta_2': 'Details',
+'card_cta_3': 'Details',
+'card_cta_4': 'Details',
+'card_cta_5': 'Details',
+'Personal_5Yr_25000_APR_URL': 'https://offers.lendingtree.com/splitter/splitter.ashx?id=bd-personalform&esourceid=6348206&csource=cnnmoney&cchannel=content&cproduct=pl&ctype=widget&s1=cnnmoneyratetablewidget',
+'Personal_3Yr_5000_APR_URL': 'https://offers.lendingtree.com/splitter/splitter.ashx?id=bd-personalform&esourceid=6348206&csource=cnnmoney&cchannel=content&cproduct=pl&ctype=widget&s1=cnnmoneyratetablewidget',
+'content1_cta': 'Get Personalized Rates',
+'content2_cta': 'Get Personalized Rates',
+'Personal_5Yr_2500_APR_URL': 'https://offers.lendingtree.com/splitter/splitter.ashx?id=bd-personalform&esourceid=6348206&csource=cnnmoney&cchannel=content&cproduct=pl&ctype=widget&s1=cnnmoneyratetablewidget',
+'Personal_3Yr_2500_APR_URL': 'https://offers.lendingtree.com/splitter/splitter.ashx?id=bd-personalform&esourceid=6348206&csource=cnnmoney&cchannel=content&cproduct=pl&ctype=widget&s1=cnnmoneyratetablewidget',
+'Personal_2Yr_1000_APR_URL': 'https://offers.lendingtree.com/splitter/splitter.ashx?id=bd-personalform&esourceid=6348206&csource=cnnmoney&cchannel=content&cproduct=pl&ctype=widget&s1=cnnmoneyratetablewidget',
+'5_1_ARM_APR_350K_URL': 'https://offers.lendingtree.com/splitter/splitter.ashx?id=bd-hybrid&loan-type=mortgage&esourceid=6348216&csource=cnnmoney&cchannel=content&cproduct=mortgage&ctype=widget&s1=cnnmoneyratetablewidget',
+'5_1_ARM_APR_225K_URL': 'https://offers.lendingtree.com/splitter/splitter.ashx?id=bd-hybrid&loan-type=mortgage&esourceid=6348216&csource=cnnmoney&cchannel=content&cproduct=mortgage&ctype=widget&s1=cnnmoneyratetablewidget',
+'5_1_ARM_RATE_INITIAL_225K_URL': 'https://offers.lendingtree.com/splitter/splitter.ashx?id=bd-hybrid&loan-type=mortgage&esourceid=6348216&csource=cnnmoney&cchannel=content&cproduct=mortgage&ctype=widget&s1=cnnmoneyratetablewidget',
+'15_FIXED_RATE_225K_URL': 'https://offers.lendingtree.com/splitter/splitter.ashx?id=bd-hybrid&loan-type=mortgage&esourceid=6348216&csource=cnnmoney&cchannel=content&cproduct=mortgage&ctype=widget&s1=cnnmoneyratetablewidget',
+'30_FIXED_RATE_225K_URL': 'https://offers.lendingtree.com/splitter/splitter.ashx?id=bd-hybrid&loan-type=mortgage&esourceid=6348216&csource=cnnmoney&cchannel=content&cproduct=mortgage&ctype=widget&s1=cnnmoneyratetablewidget',
+'card_cta_link_5_url': 'https://www.comparecards.com/reward?esourceid=6348256&utm_source=cnnmoney&utm_medium=native&grp=rewards&pla=cnnmoney&tar=widget&acqs=prospecting&bdst=flat&utm_campaign=widgetrewards',
+'card_cta_link_4_url': 'https://www.comparecards.com/cash-back?esourceid=6348246&utm_source=cnnmoney&utm_medium=native&grp=cashback&pla=cnnmoney&tar=widget&acqs=prospecting&bdst=flat&utm_campaign=widgetcashback',
+'card_cta_link_3_url': 'https://www.comparecards.com/airline?esourceid=6348236&utm_source=cnnmoney&utm_medium=native&grp=airline&pla=cnnmoney&tar=widget&acqs=prospecting&bdst=flat&utm_campaign=widgetairline',
+'card_cta_link_2_url': 'https://www.comparecards.com/airline?esourceid=6348236&utm_source=cnnmoney&utm_medium=native&grp=airline&pla=cnnmoney&tar=widget&acqs=prospecting&bdst=flat&utm_campaign=widgetairline',
+'card_cta_link_1_url': 'https://www.comparecards.com/balance-transfer?esourceid=6348226&utm_source=cnnmoney&utm_medium=native&grp=balancetransfer&pla=cnnmoney&tar=widget&acqs=prospecting&bdst=flat&utm_campaign=widgetbalancetransfer',
+'content2_cta_link_url': 'https://offers.lendingtree.com/splitter/splitter.ashx?id=bd-personalform&esourceid=6348206&csource=cnnmoney&cchannel=content&cproduct=pl&ctype=widget&s1=cnnmoneyratetablewidget',
+'content1_cta_link_url': 'https://offers.lendingtree.com/splitter/splitter.ashx?id=bd-hybrid&loan-type=mortgage&esourceid=6348216&csource=cnnmoney&cchannel=content&cproduct=mortgage&ctype=widget&s1=cnnmoneyratetablewidget',
+                }
+            }];
+
+            var pushData = function (el) {
+                var feedId = el.dataset.feedid;
+                var feedItemtitle = el.dataset.feedtitle;
+                var feedItemNum = el.dataset.feeditem;
+                var feedImagePath = el.dataset.feedimagepath;
+                var feedItemLink = el.dataset.feeditemlink;
+                var feedUrl = el.dataset.feedlink;
+                var feedItemDescription = el.dataset.feeditemdesc;
+                var data = JSON.parse(document.getElementById('feed-' + feedId).innerText);
+                data.event = 'Feed Item Clicked';
+                data.feedItemDisplayTitle = feedItemtitle;
+                data.feedItemNum = feedItemNum;
+                data.feedImagePath = feedImagePath;
+				data.feedItemLink = decodeURIComponent(feedItemLink);
+				data.feedUrl = decodeURIComponent(feedUrl);
+                data.feedItemDescription = feedItemDescription;
+                dataLayer.push(data);
+            }
+
+            function closest(el, cls) {
+                if (el.classList.contains(cls)) {
+                    return el;
+                }
+                while ((el = el.parentElement) && !el.classList.contains(cls));
+                return el;
+            }
+
+            document.addEventListener('click', function (event) {
+                var elm = closest(event.target, "feed-link");
+                if (elm != null) {
+                    pushData(elm);
+                }
+            });
+
+            // Google Tag Manager
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || []; w[l].push({
+                    'gtm.start':
+                        new Date().getTime(), event: 'gtm.js'
+                }); var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-NX4SMZL');
+            // End Google Tag Manager
+    </script>
+</head>
+<body>
+<noscript>
+<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NX4SMZL" height=0 width=0 style="display:none;visibility:hidden"></iframe>
+</noscript>
+<div class="widget-grid-container">
+<div class="widget-row text-center">
+<div class="widget-col-12 widget-title-border-bottom widget-header header-before-tabs">
+<h2 class="widget-title"> Today's Rates </h2>
+<div class="widget-textarea before-tabs"></div>
+</div>
+</div>
+<input id="tab1" type="radio" name="tabs" checked="">
+<label for="tab1" class="widget-col-4">Mortgage</label>
+<input id="tab2" type="radio" name="tabs">
+<label for="tab2" class="widget-col-4">Personal Loans</label>
+<input id="tab3" type="radio" name="tabs">
+<label for="tab3" class="widget-col-4">Credit Cards</label>
+<section id="content1">
+<div class="widget-row">
+<div class="widget-col-12 widget-title-border-bottom widget-header header-after-tabs">
+<h2> Today's Rates </h2>
+<div class="widget-textarea after-tabs"></div>
+</div>
+<div class="widget-col-12">
+<div class="table widget-table nomargin tab1">
+<div class="table-row table-head" href="">
+<div class="table-cell head widget-col-4">
+<p class="left-column">Loan Type</p>
+</div>
+<div class="table-cell head widget-col-4 col-adjustment"><p>Rate</p></div>
+<div class="table-cell head widget-col-4 col-adjustment">
+<p class="right-header">APR</p>
+</div>
+</div>
+<a class="table-row" href="https://offers.lendingtree.com/splitter/splitter.ashx?id=bd-hybrid&amp;loan-type=mortgage&amp;esourceid=6348216&amp;csource=cnnmoney&amp;cchannel=content&amp;cproduct=mortgage&amp;ctype=widget&amp;s1=cnnmoneyratetablewidget" target="_blank">
+<div class="table-cell widget-col-4 col-adjustment">
+<p class="left-column">30-yr fixed</p>
+</div>
+<div class="table-cell widget-col-4 col-adjustment">4.25%</div>
+<div class="table-cell widget-col-4 col-adjustment">
+<p class="row-btn content">4.342%</p>
+</div>
+</a>
+<a class="table-row" href="https://offers.lendingtree.com/splitter/splitter.ashx?id=bd-hybrid&amp;loan-type=mortgage&amp;esourceid=6348216&amp;csource=cnnmoney&amp;cchannel=content&amp;cproduct=mortgage&amp;ctype=widget&amp;s1=cnnmoneyratetablewidget" target="_blank">
+<div class="table-cell widget-col-4 col-adjustment">
+<p class="left-column">15-yr fixed</p>
+</div>
+<div class="table-cell widget-col-4 col-adjustment">3.875% </div>
+<div class="table-cell widget-col-4 col-adjustment">
+<p class="row-btn content">3.927%</p>
+</div>
+</a>
+<a class="table-row" href="https://offers.lendingtree.com/splitter/splitter.ashx?id=bd-hybrid&amp;loan-type=mortgage&amp;esourceid=6348216&amp;csource=cnnmoney&amp;cchannel=content&amp;cproduct=mortgage&amp;ctype=widget&amp;s1=cnnmoneyratetablewidget" target="_blank">
+<div class="table-cell widget-col-4 col-adjustment">
+<p class="left-column">5/1 ARM</p>
+</div>
+<div class="table-cell widget-col-4 col-adjustment">4% </div>
+<div class="table-cell widget-col-4 col-adjustment">
+<p class="row-btn content">4.708%</p>
+</div>
+</a>
+</div>
+<div class="table widget-table nomargin tab1">
+<div class="table-row table-head border" href="">
+<div class="table-cell widget-col-4 col-adjustment">
+<p class="left-column">Loan Amount</p>
+</div>
+<div class="table-cell widget-col-4 col-adjustment">APR</div>
+<div class="table-cell widget-col-4 col-adjustment">
+<p class="right-header">Payment
+</p></div>
+</div>
+<a class="table-row" href="https://offers.lendingtree.com/splitter/splitter.ashx?id=bd-hybrid&amp;loan-type=mortgage&amp;esourceid=6348216&amp;csource=cnnmoney&amp;cchannel=content&amp;cproduct=mortgage&amp;ctype=widget&amp;s1=cnnmoneyratetablewidget" target="_blank">
+<div class="table-cell widget-col-4 col-adjustment">
+<p class="left-column">$225,000 (5/1 ARM) </p>
+</div>
+<div class="table-cell widget-col-4 col-adjustment">4.708% </div>
+<div class="table-cell widget-col-4 col-adjustment">
+<p class="row-btn content">$1074.19/mo</p>
+</div>
+</a>
+<a class="table-row last-row" href="https://offers.lendingtree.com/splitter/splitter.ashx?id=bd-hybrid&amp;loan-type=mortgage&amp;esourceid=6348216&amp;csource=cnnmoney&amp;cchannel=content&amp;cproduct=mortgage&amp;ctype=widget&amp;s1=cnnmoneyratetablewidget" target="_blank">
+<div class="table-cell widget-col-4 col-adjustment">
+<p class="left-column">$350,000 (5/1 ARM)</p>
+</div>
+<div class="table-cell widget-col-4 col-adjustment">4.748%</div>
+<div class="table-cell widget-col-4 col-adjustment">
+<p class="row-btn content">$1670.96/mo</p>
+</div>
+</a>
+</div>
+<div class="widget-col-12 button-section">
+<div class="custom-column logo-area">
+<div class="logo-wrapper">
+<div class="lt-logo"></div>
+<p class="powered-by">NMLS#1136 Terms &amp; Conditions Apply </p>
+</div>
+</div>
+<div class="custom-column cta-btn">
+<a class="widget-btn" href="https://offers.lendingtree.com/splitter/splitter.ashx?id=bd-hybrid&amp;loan-type=mortgage&amp;esourceid=6348216&amp;csource=cnnmoney&amp;cchannel=content&amp;cproduct=mortgage&amp;ctype=widget&amp;s1=cnnmoneyratetablewidget" target="_blank">Get Personalized Rates</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="content2">
+<div class="widget-row">
+<div class="widget-col-12 widget-title-border-bottom widget-header header-after-tabs">
+<h2> Today's Rates </h2>
+<div class="widget-textarea after-tabs">This could be a paragraph of text</div>
+</div>
+<div class="widget-col-12">
+<div class="table widget-table nomargin tab2">
+<div class="table-row table-head" href="">
+<div class="table-cell head widget-col-3 col-adjustment">
+<p class="left-column">Amount</p>
+</div>
+<div class="table-cell head widget-col-3 col-adjustment"><p>Months</p></div>
+<div class="table-cell head widget-col-3 col-adjustment"><p>APR</p></div>
+<div class="table-cell head widget-col-3 col-adjustment">
+<p class="right-header">Payment
+</p></div>
+</div>
+<a class="table-row" href="https://offers.lendingtree.com/splitter/splitter.ashx?id=bd-personalform&amp;esourceid=6348206&amp;csource=cnnmoney&amp;cchannel=content&amp;cproduct=pl&amp;ctype=widget&amp;s1=cnnmoneyratetablewidget" target="_blank">
+<div class="table-cell widget-col-3 col-adjustment">
+<p class="left-column">$1,000</p>
+</div>
+<div class="table-cell widget-col-3 col-adjustment">24</div>
+<div class="table-cell widget-col-3 col-adjustment">%</div>
+<div class="table-cell widget-col-3 col-adjustment">
+<p class="row-btn content">$/mo</p>
+</div>
+</a>
+<a class="table-row" href="https://offers.lendingtree.com/splitter/splitter.ashx?id=bd-personalform&amp;esourceid=6348206&amp;csource=cnnmoney&amp;cchannel=content&amp;cproduct=pl&amp;ctype=widget&amp;s1=cnnmoneyratetablewidget" target="_blank">
+<div class="table-cell widget-col-3 col-adjustment">
+<p class="left-column">$2,500</p>
+</div>
+<div class="table-cell widget-col-3 col-adjustment"> 36</div>
+<div class="table-cell widget-col-3 col-adjustment">5.46%</div>
+<div class="table-cell widget-col-3 col-adjustment">
+<p class="row-btn content">$75/mo</p>
+</div>
+</a>
+<a class="table-row" href="https://offers.lendingtree.com/splitter/splitter.ashx?id=bd-personalform&amp;esourceid=6348206&amp;csource=cnnmoney&amp;cchannel=content&amp;cproduct=pl&amp;ctype=widget&amp;s1=cnnmoneyratetablewidget" target="_blank">
+<div class="table-cell widget-col-3 col-adjustment">
+<p class="left-column">$2,500</p>
+</div>
+<div class="table-cell widget-col-3 col-adjustment"> 60</div>
+<div class="table-cell widget-col-3 col-adjustment">8.94%</div>
+<div class="table-cell widget-col-3 col-adjustment">
+<p class="row-btn content">$50/mo </p>
+</div>
+</a>
+<a class="table-row" href="https://offers.lendingtree.com/splitter/splitter.ashx?id=bd-personalform&amp;esourceid=6348206&amp;csource=cnnmoney&amp;cchannel=content&amp;cproduct=pl&amp;ctype=widget&amp;s1=cnnmoneyratetablewidget" target="_blank">
+<div class="table-cell widget-col-3 col-adjustment">
+<p class="left-column">$5,000 </p>
+</div>
+<div class="table-cell widget-col-3 col-adjustment">36</div>
+<div class="table-cell widget-col-3 col-adjustment">5.46%</div>
+<div class="table-cell widget-col-3 col-adjustment">
+<p class="row-btn content">$149/mo</p>
+</div>
+</a>
+<a class="table-row last-row" href="https://offers.lendingtree.com/splitter/splitter.ashx?id=bd-personalform&amp;esourceid=6348206&amp;csource=cnnmoney&amp;cchannel=content&amp;cproduct=pl&amp;ctype=widget&amp;s1=cnnmoneyratetablewidget" target="_blank">
+<div class="table-cell widget-col-3 col-adjustment">
+<p class="left-column">$5,000 </p>
+</div>
+<div class="table-cell widget-col-3 col-adjustment">60</div>
+<div class="table-cell widget-col-3 col-adjustment">6.84% </div>
+<div class="table-cell widget-col-3 col-adjustment">
+<p class="row-btn content">$493/mo</p>
+</div>
+</a>
+</div>
+<div class="widget-col-12 button-section">
+<div class="custom-column logo-area">
+<div class="logo-wrapper">
+<div class="lt-logo"></div>
+<p class="powered-by">NMLS#1136 Terms &amp; Conditions Apply </p>
+</div>
+</div>
+<div class="custom-column cta-btn">
+<a class="widget-btn" href="https://offers.lendingtree.com/splitter/splitter.ashx?id=bd-personalform&amp;esourceid=6348206&amp;csource=cnnmoney&amp;cchannel=content&amp;cproduct=pl&amp;ctype=widget&amp;s1=cnnmoneyratetablewidget" target="_blank">Get Personalized Rates</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="content3">
+<div class="widget-row">
+<div class="widget-col-12 widget-title-border-bottom widget-header header-after-tabs">
+<h2>Featured Credit Cards </h2>
+<div class="widget-textarea after-tabs">This could be a paragraph of text</div>
+</div>
+<div class="widget-col-12">
+<div class="table widget-table nomargin tab3">
+<div class="table-row table-head" href="">
+<div class="table-cell head widget-col-4">
+<p class="left-column">Your Age</p>
+</div>
+<div class="table-cell head widget-col-4 "><p>Property Value</p></div>
+<div class="table-cell head widget-col-4 ">
+<p class="right-header">Potential Payout
+</p></div>
+</div>
+<a class="table-row" href="https://www.comparecards.com/balance-transfer?esourceid=6348226&amp;utm_source=cnnmoney&amp;utm_medium=native&amp;grp=balancetransfer&amp;pla=cnnmoney&amp;tar=widget&amp;acqs=prospecting&amp;bdst=flat&amp;utm_campaign=widgetbalancetransfer" target="_blank">
+<div class="table-cell widget-col-4 col-adjustment">
+<p class="left-column">Balance Transfer</p>
+</div>
+<div class="table-cell widget-col-4 col-adjustment">0% intro 21 mos</div>
+<div class="table-cell widget-col-4 col-adjustment">
+<p class="row-btn content">Details</p>
+</div>
+</a>
+<a class="table-row" href="https://www.comparecards.com/airline?esourceid=6348236&amp;utm_source=cnnmoney&amp;utm_medium=native&amp;grp=airline&amp;pla=cnnmoney&amp;tar=widget&amp;acqs=prospecting&amp;bdst=flat&amp;utm_campaign=widgetairline" target="_blank">
+<div class="table-cell widget-col-4 col-adjustment">
+<p class="left-column">Travel </p>
+</div>
+<div class="table-cell widget-col-4 col-adjustment">2x miles per $</div>
+<div class="table-cell widget-col-4 col-adjustment">
+<p class="row-btn content">Details</p>
+</div>
+</a>
+<a class="table-row" href="https://www.comparecards.com/airline?esourceid=6348236&amp;utm_source=cnnmoney&amp;utm_medium=native&amp;grp=airline&amp;pla=cnnmoney&amp;tar=widget&amp;acqs=prospecting&amp;bdst=flat&amp;utm_campaign=widgetairline" target="_blank">
+<div class="table-cell widget-col-4 col-adjustment">
+<p class="left-column">Airline Miles</p>
+</div>
+<div class="table-cell widget-col-4 col-adjustment">40k bonus miles</div>
+<div class="table-cell widget-col-4 col-adjustment">
+<p class="row-btn content">Details</p>
+</div>
+</a>
+<a class="table-row" href="https://www.comparecards.com/cash-back?esourceid=6348246&amp;utm_source=cnnmoney&amp;utm_medium=native&amp;grp=cashback&amp;pla=cnnmoney&amp;tar=widget&amp;acqs=prospecting&amp;bdst=flat&amp;utm_campaign=widgetcashback" target="_blank">
+<div class="table-cell widget-col-4 col-adjustment">
+<p class="left-column">Cash Back</p>
+</div>
+<div class="table-cell widget-col-4 col-adjustment">6% cash back</div>
+<div class="table-cell widget-col-4 col-adjustment">
+<p class="row-btn content">Details</p>
+</div>
+</a>
+<a class="table-row" href="https://www.comparecards.com/reward?esourceid=6348256&amp;utm_source=cnnmoney&amp;utm_medium=native&amp;grp=rewards&amp;pla=cnnmoney&amp;tar=widget&amp;acqs=prospecting&amp;bdst=flat&amp;utm_campaign=widgetrewards" target="_blank">
+<div class="table-cell widget-col-4 col-adjustment">
+<p class="left-column">Rewards</p>
+</div>
+<div class="table-cell widget-col-4 col-adjustment">20k Points</div>
+<div class="table-cell widget-col-4 col-adjustment">
+<p class="row-btn content">Details</p>
+</div>
+</a>
+</div>
+<div class="widget-col-12 button-section">
+<div class="custom-column logo-area">
+<div class="logo-wrapper">
+<div class="lt-logo"></div>
+<p class="powered-by">NMLS#1136 Terms &amp; Conditions Apply </p>
+</div>
+</div>
+<div class="custom-column cta-btn">
+<button class="widget-btn">See More Rates</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<script src="./iframeResizer.contentWindow.min.js.download" crossorigin="anonymous" integrity="sha256-4pHiLAYReL+uT1xGu9u8Afg9jkaV0vrdu/Dd0ax9Ak8=">
+    </script>
+<script>(window.iFrameResizer||document.write("\u003Cscript src=\u0022https:\/\/widgets.tree.com\/lib\/iframe-resizer\/js\/iframeResizer.contentWindow.min.js\u0022 crossorigin=\u0022anonymous\u0022 integrity=\u0022sha256-4pHiLAYReL\u002BuT1xGu9u8Afg9jkaV0vrdu\/Dd0ax9Ak8=\u0022\u003E\u003C\/script\u003E"));</script><script src="./iframeResizer.contentWindow.min.js(1).download" crossorigin="anonymous" integrity="sha256-4pHiLAYReL+uT1xGu9u8Afg9jkaV0vrdu/Dd0ax9Ak8="></script>
+
+</body></html>
