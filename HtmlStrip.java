@@ -12,7 +12,6 @@ package html.strip;
 
 
 
-//package com.pkm;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -20,9 +19,7 @@ import java.io.FileInputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * @author PRITOM K MONDAL
- */
+
 public class HtmlStrip {
     private static final String emptyTag = "<[a-zA-Z0-9]+[^>]+>|</[a-zA-Z0-9]+>";
     private static final String commentTag = "<!--(.*?)-->";
