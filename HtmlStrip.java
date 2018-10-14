@@ -28,7 +28,7 @@ public class HtmlStrip {
     public static void main(String[] args) throws Exception {
         File source = new File("javaword.txt");
         String text = new String(readObjectFromFile(source), "UTF-8");
-        //text = "<p-if case='n=1'>TESTED_N_EQ_1</p-if>";
+   
         text = parse(text);
         println("-------------------------------");
         println(text);
