@@ -42,6 +42,7 @@ def retrieve_doc(fpath):
     with open(fpath, 'rb') as fobj:
         text = fobj.read()
     try:
+        text = re.sub(b'<', b' <', text)
         doc = lxml.html.fromstring(text)
     except etree.ParserError as err:
         print(err)
@@ -269,10 +270,8 @@ def write_html(fpath, doc):
 def write_html(fpath, doc):
     with open(fpath+'.txt', 'wt') as fobj:
         try:
-            text = etree.tostring(doc)
-            text = re.sub('/>', ' />', text)
-            doc = lxml.html.fromstring(text)
             text = doc.text_content()
+            # text = ''.join(text.split())
         except AttributeError:
             text = ''
         fobj.write(text)

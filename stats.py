@@ -116,6 +116,7 @@ def run_main():
         text = remove_non_alpha(text)
         index_add_text(index, text)
     zipf = order_index(index)
+    pprint.pprint(zipf)
     write_freq('index.txt', zipf)
     plot_zipf_detail(zipf)
 
