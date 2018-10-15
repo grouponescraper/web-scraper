@@ -4,9 +4,14 @@ from lxml.html.clean import Cleaner
 from lxml.html import HtmlElement, etree
 import matplotlib.pyplot as plt
 from urllib import request
+from copy import deepcopy
 import numpy as np
+import shutil
 import os
 import re
+
+
+# from extractor import goose_extract
 
 
 def connect(url):
@@ -33,29 +38,57 @@ def retrieve_html(url):
     return lxml.html.fromstring(raw_html)
 
 
-def clean(doc):
-    return Cleaner(
-        scripts=True,
-        javascript=True,
-        style=True,
-        inline_style=True,
-        comments=True,
-        forms=True,
-        frames=True,
-        embedded=True,
-        # meta=True,
-        remove_unknown_tags=True,
-        kill_tags=(
-            'form',
-            'input',
-            'footer',
-            'button',
-            'embed',
-            'textarea',
-            # 'img',
-            # 'button'
-        ),
-    ).clean_html(doc)
+def retrieve_doc(fpath):
+    with open(fpath, 'rb') as fobj:
+        text = fobj.read()
+    try:
+        doc = lxml.html.fromstring(text)
+    except etree.ParserError as err:
+        print(err)
+        doc = ''
+    return doc
+
+
+PRE_CLEANER = Cleaner(
+    scripts=True,
+    javascript=True,
+    style=True,
+    inline_style=True,
+    comments=True,
+    forms=True,
+    frames=True,
+    embedded=True,
+    # meta=True,
+    remove_unknown_tags=True,
+    kill_tags=(
+        'form',
+        'input',
+        # 'footer',
+        # 'button',
+        'embed',
+        'textarea',
+        # 'img',
+        # 'button'
+    ),
+)
+
+
+POST_CLEANER = Cleaner(
+    remove_tags=(
+        'a'
+    ),
+    kill_tags=(
+        'img'
+    ),
+)
+
+
+def pre_clean(doc):
+    return PRE_CLEANER.clean_html(doc)
+
+
+def post_clean(doc):
+    return POST_CLEANER.clean_html(doc)
 
 
 def get_fmt_tags():
@@ -73,6 +106,8 @@ def get_struct_tags():
         'title', 'tr', 'ul'
     ]
 
+
+'''
 
 def remove_link_dense(doc):
     # TODO remove this?
@@ -105,6 +140,8 @@ def remove_link_tables(doc):
         for node in remove_nodes:
             node.getparent().remove(node)
     return doc
+
+'''
 
 
 def remove_dense_link(doc, fctr=1.0):
@@ -172,7 +209,6 @@ def get_server_regex():
 
 
 def remove_ad_servers(doc):
-    # TODO use more robust regex list...
     if isinstance(doc, HtmlElement):
         remove_nodes = []
         whitelist_re, blacklist_re = get_server_regex()
@@ -181,19 +217,22 @@ def remove_ad_servers(doc):
             for attrib in attribs:
                 if not whitelist_re.search(attrib) and blacklist_re.search(attrib):
                     # TODO remove, for debugging
-                    print('remove from server', attrib)
                     remove_nodes.append(node)
         for node in remove_nodes:
             node.getparent().remove(node)
     return doc
 
 
-def noise_removal(url):
-    doc = retrieve_html(url)
+def noise_removal(doc):
     if isinstance(doc, HtmlElement):
-        doc = clean(doc)
-        doc = remove_dense_link(doc, 0.75)
+        doc = pre_clean(doc)
+        doc_copy = deepcopy(doc)
+        try:
+            doc = remove_dense_link(doc, 0.75)
+        except AttributeError:
+            doc = deepcopy(doc_copy)
         doc = remove_ad_servers(doc)
+        doc = post_clean(doc)
     return doc
 
 
@@ -214,27 +253,50 @@ def format_doc(doc):
     return webpage
 
 
-def read_files(fpath):
-    pass
+'''
+
+def write_html(fpath, doc):
+    with open(fpath, 'wb') as fobj:
+        try:
+            html = etree.tostring(doc, pretty_print=True)
+        except TypeError:
+            html = b''
+        fobj.write(html)
+
+'''
+
+
+def write_html(fpath, doc):
+    with open(fpath+'.txt', 'wt') as fobj:
+        try:
+            text = doc.text_content()
+            # text = ''.join(text.split())
+        except AttributeError:
+            text = ''
+        fobj.write(text)
+
+
+def init_dir():
+    repdir = 'cleaned/'
+    if os.path.exists(repdir):
+        shutil.rmtree(repdir)
+    os.mkdir(repdir)
+    return repdir
+
+
+def denoiser(inpath):
+    outpath = 'cleaned/'+inpath.split('/', 1)[-1]
+    doc = retrieve_doc(inpath)
+    if len(doc) > 0:
+        doc = noise_removal(doc)
+    write_html(outpath, doc)
 
 
 def run_main():
-    url = 'https://edition.cnn.com/2012/02/22/world/europe/uk-occupy-london/index.html'
-    # url = 'https://en.wikipedia.org/wiki/Peter_and_Paul_Fortress'
-
-    # doc = retrieve_html(url)
-    # with open('tree_unproc.html', 'wb') as fobj:
-    #     fobj.write(etree.tostring(doc, pretty_print=True))
-    # print('unproc')
-
-    # doc = remove_ad_servers(doc)
-    # with open('tree_proc.html', 'wb') as fobj:
-    #     fobj.write(etree.tostring(doc, pretty_print=True))
-    # print('proc')
-
-    doc = noise_removal(url)
-    text = format_doc(doc)
-    print(text)
+    init_dir()
+    for path in os.listdir('repository/'):
+        print(path)
+        denoiser('repository/'+path)
 
 
 if __name__ == '__main__':

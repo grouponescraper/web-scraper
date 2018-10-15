@@ -2,7 +2,6 @@ from collections import OrderedDict
 from bs4 import BeautifulSoup
 from urllib import request
 import threading
-import pprint
 import shutil
 import time
 import os
@@ -37,8 +36,7 @@ def connect(url, max_errors=3, retry_time=10):
             if res is not None:
                 print('            ', 'connected to', res.geturl())
                 return res
-        except Exception as err:
-            # print('            ', err, url)
+        except Exception:
             error_counter += 1
             time.sleep(retry_time)
 
@@ -51,6 +49,11 @@ def init_dir():
     if os.path.exists(repdir):
         shutil.rmtree(repdir)
     os.mkdir(repdir)
+
+
+# def table_writer():
+#     with open('report.html', 'at') as fobj:
+#         fobj.write()
 
 
 def init_seed(path):
@@ -182,7 +185,6 @@ def get_imgs(tree):
 def scrape_page(res, url):
     # res = connect(url, 1, 0)
     if res:
-        # status_code = res.getcode()
         tree = BeautifulSoup(res, 'lxml')
         links = gather_links(tree)
         imgs = get_imgs(tree)
@@ -191,14 +193,32 @@ def scrape_page(res, url):
     return [], 0
 
 
+def table_res_head():
+    with open('report.html', 'at') as fobj:
+        line = '<table><tr>' + \
+            '<th>Weblink</th> ' + \
+            '<th>Local File</th> ' + \
+            '<th>Response Code</th> ' + \
+            '<th>Num Out Links</th> ' + \
+            '<th>Num Images</th></tr>'
+        fobj.write(line)
+
+
+def table_res_tail():
+    with open('report.html', 'at') as fobj:
+        fobj.write('</table>')
+
+
 def append_page_info(res, url, links, imgs):
     with open('report.html', 'at') as fobj:
         fpath = repository_fpath(url)
         numlinks = str(len(links))
-        line = '<p>' + \
-            '<a href='+url+'>'+url+'</a> ' + \
-            '<a href='+'repository/'+fpath+'.html>'+fpath+'</a> ' + \
-            str(res.getcode())+' '+numlinks + ' ' + str(imgs) + '</p>'
+        line = '<tr>' + \
+            '<th><a href='+url+'>'+url+'</a></th> ' + \
+            '<th><a href='+'repository/'+fpath+'.html>'+fpath+'</a></th> ' + \
+            '<th>'+str(res.getcode())+'</th> '+ \
+            '<th>'+numlinks + '</th> ' + \
+            '<th>'+str(imgs) + '</th></tr>'
         fobj.write(line)
 
 
@@ -252,6 +272,7 @@ def run_thread(hostname, directory, expired, restrict):
 
 def run_hostname(hostname, directory, expired, restrict):
     url = next_url(directory[hostname])
+    expired[hostname] = [url]
     disallowed, delay = get_crawl_restrictions(hostname)
     while limit_not_reached() and has_url(url):
         res = connect(url, 1, 0)
@@ -269,6 +290,7 @@ def run_hostname(hostname, directory, expired, restrict):
 def run_main():
     hostname, directory, expired, rstr = init_crawler()
     iter = 0
+    table_res_head()
     while limit_not_reached() or threading.active_count() > 1:
         hostnames = list(directory.keys())
         hostnames = hostnames[iter:] + hostnames[:iter]
@@ -287,6 +309,7 @@ def run_main():
     # pprint.pprint(expired)
     # print('\n')
     # print('goodbye!')
+    table_res_tail()
 
 
 if __name__ == '__main__':
