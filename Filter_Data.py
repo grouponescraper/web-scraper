@@ -43,6 +43,7 @@ def remove_footer():
 
 def filter_tags(text):
     re_script = re.compile('<\s*script[^>]*>[^<]*<\s*/\s*script\s*>',re.I)#Script
+    re_style = re.compile('<\s*style[^>]*>[^<]*<\s*/\s*style\s*>') #Style
     re_br = re.compile('<br\s*?/?>') #line break
     re_list = re.compile('<li\s*?/?>') #list
     re_tag = re.compile('</?\w+[^>]*>') #HTML tag
@@ -51,6 +52,7 @@ def filter_tags(text):
     re_blankline = re.compile('\n+')
    
     s = re_script.sub('',text) #remove script
+    s = re_style.sub('', s) #remove style
     s = re_br.sub('\n',s) #change br to \n
     s = re_list.sub('\n', s) #chang li to \n
     s = re_tag.sub('',s) #remove HTML tag
