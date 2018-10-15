@@ -15,7 +15,7 @@ MAX_ERRORS = 3
 CLOCK_ID = 0
 REPOSITORY_TOKEN = '.'
 TOTAL_PAGES = 1000
-MAX_SUB_THREADS = 10
+MAX_SUB_THREADS = 25
 
 
 def get_http_headers():
@@ -49,11 +49,6 @@ def init_dir():
     if os.path.exists(repdir):
         shutil.rmtree(repdir)
     os.mkdir(repdir)
-
-
-# def table_writer():
-#     with open('report.html', 'at') as fobj:
-#         fobj.write()
 
 
 def init_seed(path):
@@ -104,7 +99,8 @@ def get_crawl_restrictions(hostname):
                 delays.append(float(line.lstrip('crawl-delay:')))
             j += 1
 
-    delay_def = 3
+    delay_def = 1
+    # delay_def = 3
     delays.append(delay_def)
     delay = max(delays)
     return disallowed, delay
@@ -302,13 +298,6 @@ def run_main():
             else:
                 break
         time.sleep(1)
-
-    # print('\n\n')
-    # pprint.pprint(directory)
-    # print('\n\n')
-    # pprint.pprint(expired)
-    # print('\n')
-    # print('goodbye!')
     table_res_tail()
 
 

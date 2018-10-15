@@ -269,8 +269,10 @@ def write_html(fpath, doc):
 def write_html(fpath, doc):
     with open(fpath+'.txt', 'wt') as fobj:
         try:
+            text = etree.tostring(doc)
+            text = re.sub('/>', ' />', text)
+            doc = lxml.html.fromstring(text)
             text = doc.text_content()
-            # text = ''.join(text.split())
         except AttributeError:
             text = ''
         fobj.write(text)
