@@ -239,18 +239,21 @@ def noise_removal(doc):
 
 def format_doc(doc):
     webpage = ''
-    for node in doc.iter():
-        tag, text = node.tag, node.text
-        if text is not None:
-            text = text.strip()
-            if tag in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
-                webpage += '\n' + text + '\n'
-            elif tag in ['p']:
-                webpage += '\n' + text + '\n'
-            elif tag in ['div']:
-                webpage += '\n' + text
-            else:
-                webpage += text
+    try:
+        for node in doc.iter():
+            tag, text = node.tag, node.text
+            if text is not None:
+                text = text.strip()
+                if tag in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
+                    webpage += '\n' + text + '\n'
+                elif tag in ['p']:
+                    webpage += '\n' + text + '\n'
+                elif tag in ['div']:
+                    webpage += '\n' + text
+                else:
+                    webpage += text
+    except AttributeError:
+        webpage = doc
     return webpage
 
 
@@ -267,13 +270,21 @@ def write_html(fpath, doc):
 '''
 
 
+'''
 def write_html(fpath, doc):
     with open(fpath+'.txt', 'wt') as fobj:
         try:
             text = doc.text_content()
+            text = re.sub('[\t\n]+', '\n', text)
             # text = ''.join(text.split())
         except AttributeError:
             text = ''
+        fobj.write(text)
+'''
+
+
+def write_html(fpath, text):
+    with open(fpath+'.txt', 'wt') as fobj:
         fobj.write(text)
 
 
@@ -290,7 +301,8 @@ def denoiser(inpath):
     doc = retrieve_doc(inpath)
     if len(doc) > 0:
         doc = noise_removal(doc)
-    write_html(outpath, doc)
+    text = format_doc(doc)
+    write_html(outpath, text)
 
 
 def run_main():
@@ -300,8 +312,25 @@ def run_main():
         denoiser('repository/'+path)
 
 
+def run_demo():
+    urls = [
+        'https://edition.cnn.com/2012/02/22/world/europe/uk-occupy-london/index.html',
+        'https://en.wikipedia.org/wiki/Mikhail_Bakunin',
+        'https://www.nature.com/articles/nbt.4257',
+        'https://www.hollywoodreporter.com/rambling-reporter/how-oscar-producer-neil-meron-is-adjusting-craig-zadans-death-1148709'
+    ]
+    for url in urls:
+        doc = retrieve_html(url)
+        doc = noise_removal(doc)
+        text = format_doc(doc)
+        fpath = re.sub('\W+', '', url)
+        write_html('demo/'+fpath, text)
+        print('wrote', fpath)
+
+
 if __name__ == '__main__':
-    run_main()
+    # run_main()
+    run_demo()
 
 
 # end of file
