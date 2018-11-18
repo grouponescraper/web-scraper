@@ -1,6 +1,7 @@
 from collections import OrderedDict
 from bs4 import BeautifulSoup
 from urllib import request
+from urllib import robotparser
 import threading
 import shutil
 import time
@@ -14,8 +15,8 @@ MAX_ERRORS = 3
 
 CLOCK_ID = 0
 REPOSITORY_TOKEN = '.'
-TOTAL_PAGES = 1000
-MAX_SUB_THREADS = 25
+TOTAL_PAGES = 10000
+MAX_SUB_THREADS = 1
 
 
 def get_http_headers():
@@ -65,6 +66,7 @@ def init_crawler():
     url, pgs, rstr = init_seed('specification.csv')
     hostname = get_hostname(url, '')
     directory = OrderedDict()
+    # url = get_hostname(url, '')
     directory[hostname] = [url]
     expired = OrderedDict()
     global TOTAL_PAGES
@@ -74,7 +76,7 @@ def init_crawler():
 
 def get_robots_txt(url):
     roburl = url+'/robots.txt'
-    res = connect(roburl, 1, 0)
+    res = connect(roburl, 3, 0)
     if res:
         tree = BeautifulSoup(res.read(), 'lxml')
         return tree.getText()
@@ -87,23 +89,40 @@ def get_crawl_restrictions(hostname):
     lines = [x.lower() for x in txt.split('\n')]
     user_agent = [i for i, x in enumerate(lines) if x.replace(' ', '') == 'user-agent:*']
 
-    disallowed = []
+    # disallowed = []
     delays = []
     for i in user_agent:
         j = 1
         while i+j < len(lines) and not lines[i+j].startswith('user-agent:'):
             line = lines[i+j]
-            if line.startswith('disallow:'):
-                disallowed.append(hostname+line.lstrip('disallow:').strip())
             if line.startswith('crawl-delay:'):
                 delays.append(float(line.lstrip('crawl-delay:')))
             j += 1
 
     delay_def = 1
-    # delay_def = 3
     delays.append(delay_def)
     delay = max(delays)
-    return disallowed, delay
+
+    robot = robotparser.RobotFileParser()
+    robot.set_url(hostname + '/robots.txt')
+    robot.read()
+
+    return robot, delay
+
+
+'''
+
+def get_crawl_restrictions(hostname):
+    robot = robotparser.RobotFileParser()
+    robot.set_url(hostname+'/robots.txt')
+    robot.read()
+    # req_rate = int(robot.crawl_delay('*'))
+
+    rrate = robot.
+    
+    return robot, req_rate
+
+'''
 
 
 def init_loop():
@@ -115,7 +134,7 @@ def end_loop(delay, seci):
     # pause_time = max(0, delay-dur_sec)
 
     while time.time() < delay + seci and limit_not_reached():
-        time.sleep(1)
+        time.sleep(0.1)
 
     # return pause_time
 
@@ -218,6 +237,8 @@ def append_page_info(res, url, links, imgs):
         fobj.write(line)
 
 
+'''
+
 def remove_restricted(links, rstr, disallowed):
     # TODO test this more!
     fltrd = []
@@ -225,6 +246,18 @@ def remove_restricted(links, rstr, disallowed):
         for disallow in disallowed:
             if disallow not in link:
                 fltrd.append(link)
+    fltrd = list(filter(lambda x: rstr in x, fltrd))
+    return fltrd
+
+'''
+
+
+def remove_restricted(links, rstr, disallowed):
+    # TODO test this more!
+    fltrd = []
+    for link in links:
+        if disallowed.can_fetch('*', link):
+            fltrd.append(link)
     fltrd = list(filter(lambda x: rstr in x, fltrd))
     return fltrd
 
@@ -271,7 +304,7 @@ def run_hostname(hostname, directory, expired, restrict):
     expired[hostname] = [url]
     disallowed, delay = get_crawl_restrictions(hostname)
     while limit_not_reached() and has_url(url):
-        res = connect(url, 1, 0)
+        res = connect(url, 3, 0)
         sec_i = init_loop()
         links, imgs = scrape_page(res, url)
         if res:
